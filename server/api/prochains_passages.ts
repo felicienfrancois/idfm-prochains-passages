@@ -1,3 +1,4 @@
+import stopsData from "@/data/stops.json";
 import lines from "@/data/lines.json";
 const runtimeConfig = useRuntimeConfig();
 
@@ -5,15 +6,22 @@ export default defineEventHandler(async (event) => {
   const { stops } = getQuery(event);
   if (!stops) return;
   
-  const prochains_passages = [];
+  const result = [];
   for (let stopId of JSON.parse(stops as string)) {
+    const stop: any = {
+      id: (stopsData as any)[stopId]?.id,
+      name: (stopsData as any)[stopId]?.name,
+      lines: (stopsData as any)[stopId]?.lines.map((id: string) => (lines as any)[id]),
+      next_stops: []
+    };
+    result.push(stop);
     const idfm_resp = await $fetch(`https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring?MonitoringRef=STIF:StopPoint:Q:${stopId}:`, {
       headers: {
         apiKey: runtimeConfig.apiKey,
       },
     });
     for (let s of (idfm_resp as any)?.Siri?.ServiceDelivery?.StopMonitoringDelivery?.flatMap((s: any) => s?.MonitoredStopVisit)) {
-      prochains_passages.push({
+      stop.next_stops.push({
         direction_name: s?.MonitoredVehicleJourney?.DirectionName?.[0]?.value,
         destination_name: s?.MonitoredVehicleJourney?.DestinationName?.[0]?.value,
         journey_note: s?.MonitoredVehicleJourney?.JourneyNote?.[0]?.value,
@@ -31,5 +39,5 @@ export default defineEventHandler(async (event) => {
       });
     }
   }
-  return prochains_passages;
+  return result;
 });

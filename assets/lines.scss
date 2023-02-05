@@ -1,23 +1,4 @@
-.line--A, .line--B, .line--C, .line--D, .line--E {
-  font-size: 1rem !important;
-  font-weight: bold !important;
-}
 
-.line--H, .line--J, .line--K, .line--L, .line--N, .line--P, .line--R, .line--U {
-  font-size: 1rem !important;
-  font-weight: bold !important;
-}
-
-.line--1, .line--2, .line--3, .line--4, .line--5, .line--6, .line--7, .line--8, .line--9, .line--10, .line--11, .line--12, .line--13, .line--14, .line--15, .line--16, .line--17, .line--18 {
-  font-size: 1rem !important;
-  border-radius: 50% !important;
-  font-weight: bold !important;
-}
-
-.line--T1, .line--T2, .line--T3, .line--T4, .line--T5, .line--T6, .line--T7, .line--T8, .line--T9, .line--T10, .line--T11, .line--T12, .line--T13 {
-  font-size: 1rem !important;
-  font-weight: bold !important;
-}
 
 .line--1, .line--C {
   background-color: #ffce00 !important;
@@ -25,18 +6,22 @@
 }
 .line--2, .line--T1 {
   background-color: #0064b0 !important;
+  border-color: #0064b0 !important;
   color: #ffffff !important;
 }
 .line--3, .line--K, .line--T8, .line--T10 {
   background-color: #9f9825 !important;
+  border-color: #9f9825 !important;
   color: #ffffff !important;
 }
 .line--4, .line--E, .line--T2, .line--C4 {
   background-color: #c04191 !important;
+  border-color: #c04191 !important;
   color: #ffffff !important;
 }
 .line--5, .line--P, .line--T3a, .line--T11 {
   background-color: #f28e42 !important;
+  border-color: #f28e42 !important;
   color: #25303b !important;
 }
 .line--6, .line--7bis {
@@ -57,14 +42,17 @@
 }
 .line--10, .line--T4 {
   background-color: #e3b32a !important;
+  border-color: #e3b32a !important;
   color: #25303b !important;
 }
 .line--11, .line--H, .line--T7, .line--T13 {
   background-color: #8d5e2a !important;
+  border-color: #8d5e2a !important;
   color: #ffffff !important;
 }
 .line--12, .line--D, .line--T3b {
   background-color: #00814f !important;
+  border-color: #00814f !important;
   color: #ffffff !important;
 }
 .line--13, .line--3bis {
@@ -73,10 +61,12 @@
 }
 .line--14, .line--T5 {
   background-color: #662483 !important;
+  border-color: #662483 !important;
   color: #ffffff !important;
 }
 .line--15, .line--U, .line--T12 {
   background-color: #b90845 !important;
+  border-color: #b90845 !important;
   color: #ffffff !important;
 }
 .line--18, .line--N {
@@ -189,10 +179,12 @@
 }
 .line--A, .line--T6, .line--C2 {
   background-color: #e3051c !important;
+  border-color: #e3051c !important;
   color: #ffffff !important;
 }
 .line--B, .line--T9, .line--C1 {
   background-color: #5291ce !important;
+  border-color: #5291ce !important;
   color: #ffffff !important;
 }
 .line--ORLY_VAL {
@@ -206,4 +198,42 @@
 .line--C3 {
   background-color: #00856f !important;
   color: #25303b !important;
+}
+
+.line--A, .line--B, .line--C, .line--D, .line--E {
+  font-weight: bold !important;
+  height: 36px !important;
+  width: 36px !important;
+  font-size: 1.2rem !important;
+  padding: 0 7px 3px !important;
+  justify-content: center;
+}
+
+.line--H, .line--J, .line--K, .line--L, .line--N, .line--P, .line--R, .line--U {
+  font-weight: bold !important;
+  height: 36px !important;
+  width: 36px !important;
+  font-size: 1.2rem !important;
+  padding: 0 7px 3px !important;
+  justify-content: center;
+}
+
+.line--1, .line--2, .line--3, .line--4, .line--5, .line--6, .line--7, .line--8, .line--9, .line--10, .line--11, .line--12, .line--13, .line--14, .line--15, .line--16, .line--17, .line--18 {
+  border-radius: 50% !important;
+  font-weight: bold !important;
+  height: 36px !important;
+  width: 36px !important;
+  font-size: 1.2rem !important;
+  padding: 0 7px 3px !important;
+  justify-content: center;
+}
+
+.line--T1, .line--T2, .line--T3a, .line--T3b, .line--T4, .line--T5, .line--T6, .line--T7, .line--T8, .line--T9, .line--T10, .line--T11, .line--T12, .line--T13 {
+  font-size: 1.2rem !important;
+  height: 32px !important;
+  font-weight: bold !important;
+  border-top-width: 3px !important;
+  border-bottom-width: 3px !important;
+  color: #25303b !important;
+  background-color: transparent !important;
 }

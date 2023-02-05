@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-app-bar density="compact" app>
+      <v-spacer />
       <v-dialog
         v-model="dialog"
         fullscreen
@@ -12,7 +13,7 @@
           icon
           small
         >
-          <Icon name="mdi:plus" size="2em" />
+          <Icon name="mdi:cog-outline" size="2em" />
         </v-btn>
        </template>
        <v-card>
@@ -24,12 +25,11 @@
             dark
             @click="dialog = false"
             :rounded="0"
-            color="secondary"
           >
             <Icon name="mdi:close" size="2em" />
           </v-btn>
         </v-toolbar>
-        <v-card-text style="max-height: calc(100vh - 116px)">
+        <v-card-text style="max-height: calc(100vh - 116px); overflow-y: auto;">
           <v-card flat v-for="item in items" :key="item.stop_id" @click="toggleStop(item.stop_id)" class="py-2">
             <v-row dense>
               <v-col class="text-center" cols="1">
@@ -70,26 +70,55 @@
       </v-dialog>
     </v-app-bar>
     <v-main app>
-      <v-container>
-        <v-row v-for="prochain_passage in prochains_passages" :key="prochain_passage">
-          <v-col cols="1" class="text-right">
+      <v-card v-for="stop in prochains_passages" :key="stop.id" flat class="pt-5">
+        <v-toolbar class="px-3" density="compact">
+          <v-toolbar-title>
+            <span class="mr-4">{{ stop.name }}</span>
             <v-chip
+              v-for="line in stop.lines"
+              :key="line"
               variant="elevated"
               size="small"
               label
-              :class="resolveLineClass(prochain_passage.line)"
+              :class="`font-weight-bold mr-1 ${resolveLineClass(line)}`"
             >
-              {{ prochain_passage.line }}
+              {{ line }}
             </v-chip>
-          </v-col>
-          <v-col>
-            {{ prochain_passage.destination_display || prochain_passage.destination_name }}
-          </v-col>
-          <v-col>
-            {{ formatTime(prochain_passage.expected_departure_time) }}
-          </v-col>
-        </v-row>
-      </v-container>
+          </v-toolbar-title>
+        </v-toolbar>
+        <v-container fluid>
+          <v-row v-if="!stop.next_stops.length">
+            <v-col class="text-disabled">
+              Aucun résultat
+            </v-col>
+          </v-row>
+          <v-row v-for="prochain_passage in stop.next_stops" :key="prochain_passage" dense>
+            <v-col>
+              <v-list-item>
+                <template v-slot:prepend>
+                  <v-chip
+                    variant="elevated"
+                    size="small"
+                    label
+                    :class="`mr-4 ${resolveLineClass(prochain_passage.line)}`"
+                  >
+                    {{ prochain_passage.line }}
+                  </v-chip>
+                </template>
+                <v-list-item-title class="text-h6">
+                  {{ prochain_passage.destination_display || prochain_passage.destination_name }}
+                </v-list-item-title>
+                <v-list-item-subtitle v-if="prochain_passage.journey_note">
+                  {{ prochain_passage.journey_note }}
+                </v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+            <v-col class="text-h5">
+              {{ formatTime(prochain_passage.expected_departure_time) }}
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
     </v-main>
   </v-app>
 </template>
