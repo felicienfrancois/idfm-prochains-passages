@@ -88,8 +88,8 @@
         </v-toolbar>
         <v-container fluid>
           <v-row v-if="!stop.next_stops.length">
-            <v-col class="text-disabled">
-              Aucun résultat
+            <v-col class="text-disabled pl-7">
+              Info indisponible
             </v-col>
           </v-row>
           <v-row v-for="prochain_passage in stop.next_stops" :key="prochain_passage" dense>
@@ -114,7 +114,8 @@
               </v-list-item>
             </v-col>
             <v-col class="text-h5">
-              {{ formatTime(prochain_passage.expected_departure_time) }}
+              <span v-if="prochain_passage.vehicule_at_stop">A l'arrêt</span>
+              <span v-else>{{ formatRemainingTime(prochain_passage.expected_departure_time) }}</span>
             </v-col>
           </v-row>
         </v-container>
@@ -136,6 +137,7 @@ export default defineNuxtComponent({
       stops: [] as string[],
       dialog: false as boolean,
       prochains_passages: [],
+      currentTimestamp: new Date().getTime(),
     };
   },
   watch: {
@@ -158,6 +160,14 @@ export default defineNuxtComponent({
         .split(" ").pop()
         ?.split(":").splice(0, 2).join(":");
     },
+    formatRemainingTime(date: string|number|Date) {
+      const remainingMin = Math.round((new Date(date).getTime() - this.currentTimestamp) / 60000);
+      if (remainingMin > 1) {
+        return `${remainingMin}min`;
+      } else {
+        return "A l'approche";
+      }
+    },
     toggleStop(stopId: string) {
       const i = this.stops.indexOf(stopId);
       if (i !== -1) this.stops.splice(i, 1);
@@ -172,7 +182,8 @@ export default defineNuxtComponent({
     },
   },
   mounted() {
-    setInterval(this.refresh, 30000);
+    setInterval(this.refresh, 60000);
+    setInterval(() => this.currentTimestamp = new Date().getTime(), 5000);
   },
   async asyncData (arg: any) {
     const stops = JSON.parse(arg._route.query.stops || "[]") || [];
