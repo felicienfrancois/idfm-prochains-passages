@@ -16,42 +16,56 @@
         </v-btn>
        </template>
        <v-card>
-        <v-toolbar>
+        <v-toolbar class="px-2">
           <v-spacer />
-          <v-text-field v-model="search" label="Rechercher un arrêt de Bus, Métro, RER ou Transilien" hide-details />
+          <v-text-field v-model="search" label="Rechercher un arrêt de Bus, Métro, RER ou Transilien" hide-details style="min-width: 300px" />
           <v-spacer />
           <v-btn
-            icon
             dark
             @click="dialog = false"
-            small
+            :rounded="0"
+            color="secondary"
           >
             <Icon name="mdi:close" size="2em" />
           </v-btn>
         </v-toolbar>
-        <v-card-text>
-          <v-list>
-            <v-list-item v-for="item in items" :key="item.stop_id" @click="toggleStop(item.stop_id)" dense :title="item.stop_name" :subtitle="item.city">
-              <template v-slot:prepend>
-                <div style="min-width: 50px" class="text-center">
+        <v-card-text style="max-height: calc(100vh - 116px)">
+          <v-card flat v-for="item in items" :key="item.stop_id" @click="toggleStop(item.stop_id)" class="py-2">
+            <v-row dense>
+              <v-col class="text-center" cols="1">
                   <Icon name="mdi:check" size="1.5em" v-if="stops.indexOf(item.stop_id) !== -1" />
-                </div>
-                <div style="width: 200px" class="text-right mr-3">
-                  <v-chip
-                    v-for="line in item.lines"
-                    :key="line"
-                    variant="elevated"
-                    size="small"
-                    label
-                    :class="`font-weight-bold mr-1 ${resolveLineClass(line)}`"
-                  >
-                    {{ line }}
-                  </v-chip>
-                </div>
-              </template>
-            </v-list-item>
-          </v-list>
+              </v-col>
+              <v-col cols="3" class="text-right py-2">
+                <v-chip
+                  v-for="line in item.lines"
+                  :key="line"
+                  variant="elevated"
+                  size="small"
+                  label
+                  :class="`font-weight-bold mr-1 ${resolveLineClass(line)}`"
+                >
+                  {{ line }}
+                </v-chip>
+              </v-col>
+              <v-col cols="8">
+                <v-list-item :title="item.stop_name" :subtitle="item.city" class="py-0" />
+              </v-col>
+            </v-row>
+          </v-card>
         </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="secondary"
+            @click="dialog = false"
+            width="100%"
+            size="x-large"
+            class="font-weight-bold"
+            :rounded="0"
+            variant="tonal"
+          >
+            Fermer
+          </v-btn>
+        </v-card-actions>
        </v-card>
       </v-dialog>
     </v-app-bar>
