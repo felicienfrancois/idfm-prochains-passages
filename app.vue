@@ -83,7 +83,7 @@
     </v-dialog>
     <v-main app>
       <v-card v-for="stop in prochains_passages" :key="stop.id" flat class="pb-5">
-        <v-toolbar class="px-3" density="compact" color="grey-lighten-2">
+        <v-toolbar class="px-3" density="compact" color="grey-lighten-2" :rounded="0" height="56">
           <v-toolbar-title>
             <span class="mr-4">{{ stop.name }}</span>
             <v-chip
@@ -98,35 +98,35 @@
             </v-chip>
           </v-toolbar-title>
         </v-toolbar>
-        <v-container fluid class="pa-2">
+        <v-container fluid class="pa-0">
           <v-row v-if="!stop.next_stops.length">
-            <v-col class="text-disabled pl-7">
+            <v-col class="text-disabled pl-8">
               Ne circule pas
             </v-col>
           </v-row>
           <v-expand-transition v-for="(prochain_passage,index) in stop.next_stops" :key="prochain_passage">
             <v-row
-              dense
+              no-gutters
               :class="{
                 'text-disabled': prochain_passage.departure_status === 'cancelled',
                 'bg-grey-lighten-4': index % 2
               }"
               v-show="isFuture(prochain_passage.expected_departure_time || prochain_passage.aimed_departure_time)"
             >
-              <v-col cols="2" class="font-weight-normal text-center hidden-xs pt-2">
-                <div v-if="!prochain_passage.departure_status" class="text-decoration-line-through text-disabled my-n2">
+              <v-col cols="2" class="font-weight-normal hidden-xs d-flex flex-column align-center justify-center">
+                <div v-if="!prochain_passage.departure_status && prochain_passage.aimed_departure_time" class="text-decoration-line-through text-disabled mt-n1 mb-n2">
                   {{ formatTime(prochain_passage.aimed_departure_time) }}
                 </div>
                 <div :class="{
                   'text-h6': true,
-                  'text-warning': !prochain_passage.departure_status,
+                  'text-warning mb-n1': !prochain_passage.departure_status,
                   'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
                 }">
                   {{ formatTime(prochain_passage.expected_departure_time) }}
                 </div>
               </v-col>
               <v-col cols="10" sm="8">
-                <v-list-item>
+                <v-list-item density="compact">
                   <template v-slot:prepend>
                     <v-chip
                       variant="elevated"
@@ -149,7 +149,7 @@
                 </v-list-item>
               </v-col>
               <v-col cols="2" :class="{
-                'text-h6 text-center pt-2': true,
+                'text-h6 d-flex align-center justify-center': true,
                 'text-warning': !prochain_passage.departure_status,
                 'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
               }">
