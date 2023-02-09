@@ -100,7 +100,7 @@
         </v-toolbar>
         <v-container fluid class="pa-0">
           <v-row v-if="!stop.next_stops.length">
-            <v-col class="text-disabled pl-8">
+            <v-col class="text-disabled pl-10 pt-5">
               Ne circule pas
             </v-col>
           </v-row>
