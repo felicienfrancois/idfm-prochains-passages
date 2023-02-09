@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
       },
     });
     for (let s of (idfm_resp as any)?.Siri?.ServiceDelivery?.StopMonitoringDelivery?.flatMap((s: any) => s?.MonitoredStopVisit)) {
-      if (new Date(s?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime) >= new Date()) {
+      if (new Date(s?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || s?.MonitoredVehicleJourney?.MonitoredCall?.AimedDepartureTime).getTime() >= new Date().getTime() - 60000) {
         stop.next_stops.push({
           direction_name: s?.MonitoredVehicleJourney?.DirectionName?.[0]?.value,
           destination_name: s?.MonitoredVehicleJourney?.DestinationName?.[0]?.value,

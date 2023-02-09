@@ -1,3 +1,66 @@
 html {
     font-family: Tauri, sans-serif;
 }
+
+@media (min-width: 1000px) {
+    .v-application {
+        width: 75vw;
+        min-height: 75vh;
+        transform: scale(1.3333);
+        transform-origin: 0 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .v-application {
+        width: 66.67vw;
+        min-height: 66.67vh;
+        transform: scale(1.5);
+        transform-origin: 0 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    .v-application {
+        width: 50vw;
+        min-height: 50vh;
+        transform: scale(2);
+        transform-origin: 0 0;
+    }
+}
+
+@media (min-width: 2400px) {
+    .v-application {
+        width: 37vw;
+        min-height: 37vh;
+        transform: scale(2.7);
+        transform-origin: 0 0;
+    }
+}
+
+@media (min-width: 3600px) {
+    .v-application {
+        width: 25vw;
+        min-height: 25vh;
+        transform: scale(4);
+        transform-origin: 0 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .v-application {
+        width: 125vw;
+        min-height: 125vh;
+        transform: scale(0.8);
+        transform-origin: 0 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .v-application {
+        width: 140vw;
+        min-height: 140vh;
+        transform: scale(0.7143);
+        transform-origin: 0 0;
+    }
+}

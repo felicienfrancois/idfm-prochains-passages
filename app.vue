@@ -10,7 +10,7 @@
         v-bind="props"
         color="secondary"
         width="100%"
-        size="small"
+        size="x-small"
         class="font-weight-bold"
         :rounded="0"
         variant="tonal"
@@ -20,9 +20,9 @@
       </template>
       <v-card>
       <v-toolbar class="px-2">
-        <v-spacer />
+        <v-spacer class="hidden-md-and-down" />
         <v-text-field v-model="search" label="Rechercher un arrêt de Bus, Métro, RER ou Transilien" hide-details style="min-width: 300px" />
-        <v-spacer />
+        <v-spacer class="hidden-md-and-down" />
         <v-btn
           dark
           @click="dialog = false"
@@ -83,7 +83,7 @@
     </v-dialog>
     <v-main app>
       <v-card v-for="stop in prochains_passages" :key="stop.id" flat class="pb-5">
-        <v-toolbar class="px-3" density="compact">
+        <v-toolbar class="px-3" density="compact" color="grey-lighten-2">
           <v-toolbar-title>
             <span class="mr-4">{{ stop.name }}</span>
             <v-chip
@@ -98,47 +98,76 @@
             </v-chip>
           </v-toolbar-title>
         </v-toolbar>
-        <v-container fluid>
+        <v-container fluid class="pa-2">
           <v-row v-if="!stop.next_stops.length">
             <v-col class="text-disabled pl-7">
               Ne circule pas
             </v-col>
           </v-row>
-          <v-row v-for="prochain_passage in stop.next_stops" :key="prochain_passage" dense>
-            <v-col cols="10">
-              <v-list-item>
-                <template v-slot:prepend>
-                  <v-chip
-                    variant="elevated"
-                    size="small"
-                    label
-                    :class="`mr-4 ${resolveLineClass(prochain_passage.line)}`"
-                  >
-                    {{ prochain_passage.line }}
-                  </v-chip>
-                </template>
-                <v-list-item-title class="text-h6">
-                  {{ prochain_passage.destination_display || prochain_passage.destination_name }}
-                </v-list-item-title>
-                <v-list-item-subtitle v-if="prochain_passage.journey_note">
-                  {{ prochain_passage.journey_note }}
-                </v-list-item-subtitle>
-              </v-list-item>
-            </v-col>
-            <v-col class="text-h5">
-              <span v-if="prochain_passage.vehicule_at_stop">A l'arrêt</span>
-              <span v-else>{{ formatRemainingTime(prochain_passage.expected_departure_time) }}</span>
-            </v-col>
-          </v-row>
+          <v-expand-transition v-for="(prochain_passage,index) in stop.next_stops" :key="prochain_passage">
+            <v-row
+              dense
+              :class="{
+                'text-disabled': prochain_passage.departure_status === 'cancelled',
+                'bg-grey-lighten-4': index % 2
+              }"
+              v-show="isFuture(prochain_passage.expected_departure_time || prochain_passage.aimed_departure_time)"
+            >
+              <v-col cols="2" class="font-weight-normal text-center hidden-xs pt-2">
+                <div v-if="!prochain_passage.departure_status" class="text-decoration-line-through text-disabled my-n2">
+                  {{ formatTime(prochain_passage.aimed_departure_time) }}
+                </div>
+                <div :class="{
+                  'text-h6': true,
+                  'text-warning': !prochain_passage.departure_status,
+                  'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
+                }">
+                  {{ formatTime(prochain_passage.expected_departure_time) }}
+                </div>
+              </v-col>
+              <v-col cols="10" sm="8">
+                <v-list-item>
+                  <template v-slot:prepend>
+                    <v-chip
+                      variant="elevated"
+                      size="small"
+                      label
+                      :class="`mr-4 ${resolveLineClass(prochain_passage.line)}`"
+                    >
+                      {{ prochain_passage.line }}
+                    </v-chip>
+                  </template>
+                  <v-list-item-title :class="{
+                    'text-h6': true,
+                    'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
+                  }">
+                    {{ prochain_passage.destination_display || prochain_passage.destination_name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle v-if="prochain_passage.journey_note">
+                    {{ prochain_passage.journey_note }}
+                  </v-list-item-subtitle>
+                </v-list-item>
+              </v-col>
+              <v-col cols="2" :class="{
+                'text-h6 text-center pt-2': true,
+                'text-warning': !prochain_passage.departure_status,
+                'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
+              }">
+                <span v-if="prochain_passage.departure_status === 'cancelled'">Annulé</span>
+                <span v-else-if="prochain_passage.vehicule_at_stop">A l'arrêt</span>
+                <span v-else v-html="formatRemainingTime(prochain_passage.expected_departure_time)" />
+              </v-col>
+            </v-row>
+          </v-expand-transition>
         </v-container>
       </v-card>
     </v-main>
     <v-footer color="grey" app class="text-caption" height="24px">
-       <span class="mx-2">© {{ new Date().getFullYear() }} Félicien François</span>
+       <span class="mx-2">© {{ new Date().getFullYear() }}</span> <span class="hidden-xs">Félicien François</span>
        •
-       <span class="mx-2"><a href="https://github.com/felicienfrancois/idfm-prochains-passages" class="text-white">Code source</a></span>
+       <span class="mx-2"><a href="https://github.com/felicienfrancois/idfm-prochains-passages" class="text-white"><span class="hidden-xs">Code </span>source</a></span>
        •
-       <span class="mx-2">Données fournies par l'<a href="https://prim.iledefrance-mobilites.fr" class="text-white">API Ile de France Mobilité</a></span>
+       <span class="mx-2"><span class="hidden-xs">Données fournies par l'</span><a href="https://prim.iledefrance-mobilites.fr" class="text-white">API Ile de France Mobilité</a></span>
     </v-footer>
   </v-app>
 </template>
@@ -165,6 +194,9 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    isFuture(date: string) {
+      return new Date(date) >= new Date();
+    },
     resolveLineClass(line: string) {
       return `mr-1 v-chip--label v-chip--density-default v-chip--size-small v-chip--variant-elevated font-weight-bold line--${line.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9-]/g, '_')}`;
     },
@@ -182,7 +214,7 @@ export default defineNuxtComponent({
     formatRemainingTime(date: string|number|Date) {
       const remainingMin = Math.round((new Date(date).getTime() - this.currentTimestamp) / 60000);
       if (remainingMin > 1) {
-        return `${remainingMin}min`;
+        return `<span class="text-h5">${remainingMin}</span><span class="text-body-1">min</span>`;
       } else {
         return "A l'approche";
       }
