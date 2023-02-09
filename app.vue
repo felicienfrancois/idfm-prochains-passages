@@ -163,7 +163,7 @@
       </v-card>
     </v-main>
     <v-footer color="grey" app class="text-caption" height="24px">
-       <span class="mx-2">© {{ new Date().getFullYear() }}</span> <span class="hidden-xs">Félicien François</span>
+       <span class="mx-2">© {{ new Date().getFullYear() }} <span class="hidden-xs">Félicien François</span></span>
        •
        <span class="mx-2"><a href="https://github.com/felicienfrancois/idfm-prochains-passages" class="text-white"><span class="hidden-xs">Code </span>source</a></span>
        •
