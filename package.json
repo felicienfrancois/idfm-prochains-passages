@@ -9,12 +9,13 @@
     "preprocess_data": "node scripts/preprocess_data"
   },
   "devDependencies": {
+    "@fast-csv/parse": "^4.3.6",
+    "@kevinmarrec/nuxt-pwa": "^0.16.2",
+    "@mdi/font": "^7.1.96",
     "@nuxtjs/google-fonts": "^2.0.0",
     "nuxt": "^3.0.0",
-    "nuxt-icon": "^0.2.10",
     "sass": "^1.57.1",
     "vite-plugin-vuetify": "^1.0.2",
-    "vuetify": "^3.1.2",
-    "@fast-csv/parse": "^4.3.6"
+    "vuetify": "^3.1.2"
   }
 }
