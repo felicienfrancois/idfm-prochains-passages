@@ -50,3 +50,14 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Update Stop points and lines databases
+
+Stop points and lines databases are stored locally in data directory (data/stops.json and data/lines.json).
+Thoose JSON were generated from the __csv__ stop points database ["Arrêts et lignes associées" provided by Ile de France Mobilités](https://prim.iledefrance-mobilites.fr/fr/donnees-statiques/).
+
+In order to update the local database, you have to re-download the up-to-date source CSV and put it at the root of the project (/arrets-lignes.csv)
+Then run the following command :
+```
+npm run preprocess_data
+```
