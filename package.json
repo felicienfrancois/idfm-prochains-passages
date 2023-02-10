@@ -1,5 +1,11 @@
 {
-  "private": true,
+  "name": "idfm-prochains-passages",
+  "description": "Display the next bus, trains, metros, tramways at any station in the Paris area (Ile de France Mobilité)",
+  "keywords": ["Nuxt 3", "Vuetify 3", "IDFM", "RATP", "STIF", "RER", "SNCF", "Ile de France Mobilité", "Prim"],
+  "homepage": "https://prochains-passages.fr",
+  "bugs": "https://github.com/felicienfrancois/idfm-prochains-passages/issues",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

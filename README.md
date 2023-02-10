@@ -1,6 +1,8 @@
 # idfm-prochains-passages
 Display the next bus, trains, metros, tramways at any station in the Paris area (Ile de France Mobilité).
 
+Published on Netlify at [prochains-passages.fr](https://prochains-passages.fr)
+
 Based on [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) + [Vuetify 3](https://next.vuetifyjs.com)
 
 Uses [Ile de France Mobilités APIs](https://prim.iledefrance-mobilites.fr)
@@ -21,6 +23,11 @@ pnpm install
 ```
 
 ## Development Server
+
+Create a `.env` file at the root of the project to set your [Ile de France Mobilités](https://prim.iledefrance-mobilites.fr) API Key
+```
+NUXT_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 Start the development server on http://localhost:3000
 
