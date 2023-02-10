@@ -122,7 +122,7 @@
                   'text-warning mb-n1': !prochain_passage.departure_status,
                   'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled'
                 }">
-                  {{ formatTime(prochain_passage.expected_departure_time) }}
+                  {{ formatTime(prochain_passage.expected_departure_time || prochain_passage.aimed_departure_time) }}
                 </div>
               </v-col>
               <v-col cols="10" sm="8">
