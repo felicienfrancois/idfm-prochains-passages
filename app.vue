@@ -1,6 +1,6 @@
 <template>
   <Link rel="shortcut icon" type="image/png" href="/icon.png" />
-  <v-app :style="{ height }">
+  <v-app :style="{ height, background: '#fefefe' }">
     <v-dialog v-model="dialog" fullscreen transition="dialog-top-transition">
       <template #activator="{ props }">
         <v-slide-y-transition>
@@ -293,6 +293,7 @@ export default defineNuxtComponent({
       currentTimestamp: new Date().getTime(),
       idleTimer: null as NodeJS.Timeout | null,
       idle: true,
+      refresh_interval: 60000,
     };
   },
   watch: {
@@ -365,7 +366,9 @@ export default defineNuxtComponent({
     },
   },
   async mounted () {
-    setInterval(this.refresh, 60000);
+    if (this.refresh_interval > 0) {
+      setInterval(this.refresh, this.refresh_interval);
+    }
     setInterval(() => (this.currentTimestamp = new Date().getTime()), 5000);
 
     window.onmousemove = this.resetIdleTimer.bind(this);
@@ -389,6 +392,7 @@ export default defineNuxtComponent({
         : [],
       dialog: !stops.length,
       height: parseInt(arg._route.query.height) ? parseInt(arg._route.query.height) + "px" : "auto",
+      refresh_interval: arg._route.query.refresh ? parseInt(arg._route.query.refresh) * 1000 : 60000,
     };
   },
 });
