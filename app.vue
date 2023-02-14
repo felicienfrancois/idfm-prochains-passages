@@ -364,7 +364,7 @@ export default defineNuxtComponent({
       this.idleTimer = setTimeout(() => (this.idle = true), 10000);
     },
   },
-  mounted () {
+  async mounted () {
     setInterval(this.refresh, 60000);
     setInterval(() => (this.currentTimestamp = new Date().getTime()), 5000);
 
@@ -375,12 +375,16 @@ export default defineNuxtComponent({
     window.onclick = this.resetIdleTimer.bind(this);
     window.onkeydown = this.resetIdleTimer.bind(this);
     window.addEventListener("scroll", this.resetIdleTimer.bind(this), true);
+
+    if (this.stops.length && !this.prochains_passages.length) {
+      await this.refresh();
+    }
   },
   async asyncData (arg: any) {
     const stops = JSON.parse(arg._route.query.stops || "[]") || [];
     return {
       stops,
-      prochains_passages: stops.length
+      prochains_passages: stops.length && arg._route.query.preload
         ? await $fetch(`/api/prochains_passages?stops=${JSON.stringify(stops)}`)
         : [],
       dialog: !stops.length,
