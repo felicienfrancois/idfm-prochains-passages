@@ -102,13 +102,16 @@
     <v-main app>
       <div class="scale-to-screen">
         <v-card
-          v-for="stop in prochains_passages"
+          v-for="(stop, index) in prochains_passages"
           :key="stop.id"
           flat
-          class="pb-5"
         >
           <v-toolbar
-            class="px-3"
+            v-if="!index || stop.name !== prochains_passages[index-1].name"
+            :class="{
+              'px-3': true,
+              'mt-1': index,
+            }"
             density="compact"
             color="grey-lighten-2"
             :rounded="0"
@@ -128,9 +131,10 @@
               </v-chip>
             </v-toolbar-title>
           </v-toolbar>
+          <div v-else class="bg-grey" style="height: 2px" />
           <v-container fluid class="pa-0">
             <v-row v-if="!stop.next_stops.length">
-              <v-col class="text-disabled pl-10 pt-5">
+              <v-col class="text-disabled pl-10 py-6 ">
                 Ne circule pas
               </v-col>
             </v-row>
