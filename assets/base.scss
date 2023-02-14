@@ -2,42 +2,50 @@ html {
     font-family: Tauri, sans-serif;
 }
 
+@media (min-width: 800px) {
+    .scale-to-screen {
+        width: 92vw;
+        transform: scale(1.087);
+        transform-origin: 0 0;
+    }
+}
+
 @media (min-width: 1000px) {
     .scale-to-screen {
-        width: 75vw;
-        transform: scale(1.3333);
+        width: 72vw;
+        transform: scale(1.3889);
         transform-origin: 0 0;
     }
 }
 
 @media (min-width: 1200px) {
     .scale-to-screen {
-        width: 66.67vw;
-        transform: scale(1.5);
+        width: 60vw;
+        transform: scale(1.6667);
         transform-origin: 0 0;
     }
 }
 
 @media (min-width: 1600px) {
     .scale-to-screen {
-        width: 50vw;
-        transform: scale(2);
+        width: 45vw;
+        transform: scale(2.222);
         transform-origin: 0 0;
     }
 }
 
 @media (min-width: 2400px) {
     .scale-to-screen {
-        width: 37vw;
-        transform: scale(2.7);
+        width: 30vw;
+        transform: scale(3.333);
         transform-origin: 0 0;
     }
 }
 
 @media (min-width: 3600px) {
     .scale-to-screen {
-        width: 25vw;
-        transform: scale(4);
+        width: 20vw;
+        transform: scale(5);
         transform-origin: 0 0;
     }
 }
