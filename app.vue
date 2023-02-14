@@ -1,6 +1,6 @@
 <template>
   <Link rel="shortcut icon" type="image/png" href="/icon.png" />
-  <v-app>
+  <v-app :style="{ height }">
     <v-dialog v-model="dialog" fullscreen transition="dialog-top-transition">
       <template #activator="{ props }">
         <v-slide-y-transition>
@@ -263,6 +263,8 @@
           class="text-white"
         >API Ile de France Mobilité</a></span>
         <v-spacer />
+        <span class="mx-2 hidden-xs">{{ $vuetify.display.width }}x{{ $vuetify.display.height }}</span>
+        •
         <span class="mx-2 hidden-xs">{{ formatTimeSec(loadTimestamp) }}</span>
         •
         <span class="mx-2 hidden-xs">{{ formatTimeSec(lastRefreshTimestamp) }}</span>
@@ -382,6 +384,7 @@ export default defineNuxtComponent({
         ? await $fetch(`/api/prochains_passages?stops=${JSON.stringify(stops)}`)
         : [],
       dialog: !stops.length,
+      height: parseInt(arg._route.query.height) ? parseInt(arg._route.query.height) + "px" : "auto",
     };
   },
 });
