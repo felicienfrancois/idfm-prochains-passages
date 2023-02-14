@@ -115,7 +115,7 @@
             density="compact"
             color="grey-lighten-2"
             :rounded="0"
-            height="56"
+            height="54"
           >
             <v-toolbar-title>
               <span class="mr-4">{{ stop.name }}</span>
