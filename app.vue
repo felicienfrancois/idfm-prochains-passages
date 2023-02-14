@@ -241,24 +241,29 @@
     </v-main>
     <v-slide-y-reverse-transition>
       <v-footer
-        v-show="!idle"
         color="grey"
         app
         class="text-caption"
         height="24px"
       >
         <span class="mx-2">© {{ new Date().getFullYear() }}
-          <span class="hidden-xs">Félicien François</span></span>
+          <span class="hidden-sm-and-down">Félicien François</span></span>
         •
         <span class="mx-2"><a
           href="https://github.com/felicienfrancois/idfm-prochains-passages"
           class="text-white"
-        ><span class="hidden-xs">Code </span>source</a></span>
+        ><span class="hidden-sm-and-down">Code </span>source</a></span>
         •
-        <span class="mx-2"><span class="hidden-xs">Données fournies par l'</span><a
+        <span class="mx-2"><span class="hidden-sm-and-down">Données fournies par l'</span><a
           href="https://prim.iledefrance-mobilites.fr"
           class="text-white"
         >API Ile de France Mobilité</a></span>
+        <v-spacer />
+        <span class="mx-2 hidden-xs">{{ formatTimeSec(loadTimestamp) }}</span>
+        •
+        <span class="mx-2 hidden-xs">{{ formatTimeSec(lastRefreshTimestamp) }}</span>
+        •
+        <span class="mx-2 hidden-xs">{{ formatTimeSec(currentTimestamp) }}</span>
       </v-footer>
     </v-slide-y-reverse-transition>
   </v-app>
@@ -277,6 +282,8 @@ export default defineNuxtComponent({
       stops: [] as string[],
       dialog: false as boolean,
       prochains_passages: [],
+      loadTimestamp: new Date().getTime(),
+      lastRefreshTimestamp: new Date().getTime(),
       currentTimestamp: new Date().getTime(),
       idleTimer: null as NodeJS.Timeout | null,
       idle: true,
@@ -313,6 +320,12 @@ export default defineNuxtComponent({
         .splice(0, 2)
         .join(":");
     },
+    formatTimeSec (date: string | number | Date) {
+      return new Date(date)
+        .toLocaleString("fr-FR", { timeZone: "Europe/Paris" })
+        .split(" ")
+        .pop();
+    },
     formatRemainingTime (date: string | number | Date) {
       const remainingMin = Math.round(
         (new Date(date).getTime() - this.currentTimestamp) / 60000
@@ -337,6 +350,7 @@ export default defineNuxtComponent({
             `/api/prochains_passages?stops=${JSON.stringify(this.stops)}`
         )
         : [];
+      this.lastRefreshTimestamp = new Date().getTime();
     },
     resetIdleTimer () {
       this.idle = false;
