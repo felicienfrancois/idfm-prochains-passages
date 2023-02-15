@@ -1,6 +1,5 @@
-html, body, #__nuxt {
+html {
     font-family: Tauri, sans-serif;
-    min-height: 100vh;
 }
 
 .scale-to-screen {
@@ -8,14 +7,12 @@ html, body, #__nuxt {
     -ms-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
     transform-origin: 0 0;
-    min-height: 100vh;
 }
 
 @media (min-width: 800px) {
     .scale-to-screen {
-        width: 92vw;
-        transform: scale(calc(100/92));
-        min-height: 92vh;
+        width: 90vw;
+        transform: scale(calc(100/90));
     }
 }
 
@@ -23,7 +20,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 72vw;
         transform: scale(calc(100/72));
-        min-height: 72vh;
     }
 }
 
@@ -31,7 +27,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 60vw;
         transform: scale(calc(100/60));
-        min-height: 60vh;
     }
 }
 
@@ -39,7 +34,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 45vw;
         transform: scale(calc(100/45));
-        min-height: 45vh;
     }
 }
 
@@ -47,7 +41,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 30vw;
         transform: scale(calc(100/30));
-        min-height: 30vh;
     }
 }
 
@@ -55,7 +48,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 20vw;
         transform: scale(calc(100/20));
-        min-height: 20vh;
     }
 }
 
@@ -63,7 +55,6 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 125vw;
         transform: scale(calc(100/125));
-        min-height: 125vh;
     }
 }
 
@@ -71,6 +62,5 @@ html, body, #__nuxt {
     .scale-to-screen {
         width: 140vw;
         transform: scale(calc(100/140));
-        min-height: 140vh;
     }
 }
