@@ -98,15 +98,7 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <div
-    class="scale-to-screen"
-    :style="
-      scale && {
-        width: `${100/scale}vw`,
-        transform: `scale(${scale})`,
-      }
-    "
-  >
+  <div class="scale-to-screen">
     <v-card
       v-for="(stop, index) in prochains_passages"
       :key="stop.id"
@@ -298,7 +290,6 @@ export default defineNuxtComponent({
       currentTimestamp: new Date().getTime(),
       idleTimer: null as NodeJS.Timeout | null,
       idle: true,
-      refresh_interval: 60000,
     };
   },
   watch: {
@@ -371,9 +362,7 @@ export default defineNuxtComponent({
     },
   },
   async mounted () {
-    if (this.refresh_interval > 0) {
-      setInterval(this.refresh, this.refresh_interval);
-    }
+    setInterval(this.refresh, 60000);
     setInterval(() => (this.currentTimestamp = new Date().getTime()), 5000);
 
     window.onmousemove = this.resetIdleTimer.bind(this);
@@ -396,9 +385,6 @@ export default defineNuxtComponent({
         ? await $fetch(`/api/prochains_passages?stops=${JSON.stringify(stops)}`)
         : [],
       dialog: !stops.length,
-      height: parseInt(arg._route.query.height) ? parseInt(arg._route.query.height) + "px" : "auto",
-      refresh_interval: arg._route.query.refresh ? parseInt(arg._route.query.refresh) * 1000 : 60000,
-      scale: Number(arg._route.query.scale) || null,
     };
   },
 });
