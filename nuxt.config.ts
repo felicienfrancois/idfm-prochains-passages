@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     // idfm api key. Should be set through environment variable NUXT_API_KEY
-    apiKey: "",
+    primApiKey: "",
   },
   vite: {
     ssr: {

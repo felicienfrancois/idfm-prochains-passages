@@ -1,4 +1,4 @@
-const debounce = (func: Function, delay?: number) => {
+export default function debounce (func: Function, delay?: number) {
   if (!func) { return; }
   if ((func as any).debounceTimer) {
     clearTimeout((func as any).debounceTimer);
@@ -7,6 +7,4 @@ const debounce = (func: Function, delay?: number) => {
     func,
     typeof delay === "number" ? delay : 500
   );
-};
-
-export default debounce;
+}

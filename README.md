@@ -26,7 +26,7 @@ pnpm install
 
 Create a `.env` file at the root of the project to set your [Ile de France Mobilités](https://prim.iledefrance-mobilites.fr) API Key
 ```
-NUXT_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NUXT_PRIM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 Start the development server on http://localhost:3000

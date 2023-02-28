@@ -3,11 +3,11 @@ import lines from "@/data/lines.json";
 const runtimeConfig = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
-  const { stops } = getQuery(event);
-  if (!stops) { return; }
+  const { stopIds } = getQuery(event);
+  if (!stopIds) { return; }
 
   const result = [];
-  for (const stopId of JSON.parse(stops as string)) {
+  for (const stopId of (stopIds as string).split(",")) {
     const stop: any = {
       id: (stopsData as any)[stopId]?.id,
       name: (stopsData as any)[stopId]?.name,
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
       `https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring?MonitoringRef=STIF:StopPoint:Q:${stopId}:`,
       {
         headers: {
-          apiKey: runtimeConfig.apiKey,
+          apiKey: runtimeConfig.primApiKey,
         },
       }
     );

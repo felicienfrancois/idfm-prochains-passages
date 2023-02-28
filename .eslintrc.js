@@ -21,6 +21,20 @@ module.exports = {
     "@typescript-eslint"
   ],
   rules: {
+    "max-len": [1, 120],
+    "vue/max-len": [1, {
+      code: 120,
+      template: 120,
+      tabWidth: 2,
+      ignoreComments: true,
+      ignoreTrailingComments: true,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      ignoreRegExpLiterals: true,
+      ignoreHTMLAttributeValues: true,
+      ignoreHTMLTextContents: true,
+    }],
     quotes: [1, "double"],
     semi: [1, "always"],
     "comma-dangle": [1, {
@@ -30,6 +44,7 @@ module.exports = {
       exports: "never",
       functions: "never",
     }],
+    "vue/multi-word-component-names": [0, "ignore"],
     camelcase: [0, "ignore"],
     "vue/no-multiple-template-root": [0, "ignore"],
     "@typescript-eslint/no-unused-vars": [0, "ignore"],
