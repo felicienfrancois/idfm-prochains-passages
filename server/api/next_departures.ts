@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const { stopIds } = getQuery(event);
   if (!stopIds) { return; }
 
-  const result = [];
+  const result: Stop[] = [];
   for (const stopId of (stopIds as string).split(",")) {
     const stop: any = {
       id: (stopsData as any)[stopId]?.id,
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       lines: (stopsData as any)[stopId]?.lines.map(
         (id: string) => (lines as any)[id]
       ),
-      next_stops: [],
+      next_departures: [],
     };
     result.push(stop);
     const idfm_resp = await $fetch(
@@ -35,10 +35,10 @@ export default defineEventHandler(async (event) => {
         ).getTime() >=
         new Date().getTime() - 60000
       ) {
-        stop.next_stops.push({
+        stop.next_departures.push({
+          item_id: s?.ItemIdentifier,
           direction_name: s?.MonitoredVehicleJourney?.DirectionName?.[0]?.value,
-          destination_name:
-            s?.MonitoredVehicleJourney?.DestinationName?.[0]?.value,
+          destination_name: s?.MonitoredVehicleJourney?.DestinationName?.[0]?.value,
           journey_note: s?.MonitoredVehicleJourney?.JourneyNote?.[0]?.value,
           line: (lines as any)[
             s?.MonitoredVehicleJourney?.LineRef?.value

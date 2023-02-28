@@ -31,10 +31,7 @@
   </v-slide-y-reverse-transition>
 </template>
 <script setup lang="ts">
-import formatTimeSec from "@/utils/formatTimeSec";
-
 const loadTime = new Date();
 const currentTime = useCurrentTime();
 const lastRefreshTime = useLastRefreshTime();
-
 </script>

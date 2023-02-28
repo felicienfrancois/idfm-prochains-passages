@@ -1,12 +1,12 @@
 <template>
   <div class="scale-to-screen">
     <v-card
-      v-for="(stop, index) in prochains_passages"
+      v-for="(stop, index) in next_departures"
       :key="stop.id"
       flat
     >
       <v-toolbar
-        v-if="!index || stop.name !== prochains_passages[index-1].name"
+        v-if="!index || stop.name !== next_departures[index-1].name"
         :class="{
           'px-3': true,
           'mt-1': index,
@@ -32,26 +32,26 @@
       </v-toolbar>
       <div v-else class="bg-grey" style="height: 2px" />
       <v-container fluid class="pa-0">
-        <v-row v-if="!stop.next_stops.length">
+        <v-row v-if="!stop.next_departures?.length">
           <v-col class="text-disabled pl-10 py-6 ">
             Ne circule pas
           </v-col>
         </v-row>
         <v-expand-transition
-          v-for="(prochain_passage, index) in stop.next_stops"
-          :key="prochain_passage"
+          v-for="(next_departure, index) in stop.next_departures"
+          :key="next_departure.item_id"
         >
           <v-row
             v-show="
               isFuture(
-                prochain_passage.expected_departure_time ||
-                  prochain_passage.aimed_departure_time
+                next_departure.expected_departure_time ||
+                  next_departure.aimed_departure_time
               )
             "
             no-gutters
             :class="{
               'text-disabled':
-                prochain_passage.departure_status === 'cancelled',
+                next_departure.departure_status === 'cancelled',
               'bg-grey-lighten-4': index % 2,
             }"
           >
@@ -61,25 +61,25 @@
             >
               <div
                 v-if="
-                  !prochain_passage.departure_status &&
-                    prochain_passage.aimed_departure_time
+                  !next_departure.departure_status &&
+                    next_departure.aimed_departure_time
                 "
                 class="text-decoration-line-through text-disabled mt-n1 mb-n2"
               >
-                {{ formatTime(prochain_passage.aimed_departure_time) }}
+                {{ formatTime(next_departure.aimed_departure_time) }}
               </div>
               <div
                 :class="{
                   'text-h6': true,
-                  'text-warning mb-n1': !prochain_passage.departure_status,
+                  'text-warning mb-n1': !next_departure.departure_status,
                   'text-error text-decoration-line-through':
-                    prochain_passage.departure_status === 'cancelled',
+                    next_departure.departure_status === 'cancelled',
                 }"
               >
                 {{
                   formatTime(
-                    prochain_passage.expected_departure_time ||
-                      prochain_passage.aimed_departure_time
+                    next_departure.expected_departure_time ||
+                      next_departure.aimed_departure_time
                   )
                 }}
               </div>
@@ -91,21 +91,21 @@
                     variant="elevated"
                     size="small"
                     label
-                    :class="`mr-4 ${resolveLineClass(prochain_passage.line)}`"
+                    :class="`mr-4 ${resolveLineClass(next_departure.line)}`"
                   >
-                    {{ prochain_passage.line }}
+                    {{ next_departure.line }}
                   </v-chip>
                 </template>
                 <v-list-item-title
                   :class="{
                     'text-h6': true,
-                    'text-error text-decoration-line-through': prochain_passage.departure_status === 'cancelled',
+                    'text-error text-decoration-line-through': next_departure.departure_status === 'cancelled',
                   }"
                 >
-                  {{ prochain_passage.destination_display || prochain_passage.destination_name }}
+                  {{ next_departure.destination_display || next_departure.destination_name }}
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="prochain_passage.journey_note">
-                  {{ prochain_passage.journey_note }}
+                <v-list-item-subtitle v-if="next_departure.journey_note">
+                  {{ next_departure.journey_note }}
                 </v-list-item-subtitle>
               </v-list-item>
             </v-col>
@@ -114,15 +114,15 @@
               sm="2"
               :class="{
                 'text-h6 d-flex align-center justify-center': true,
-                'text-warning': !prochain_passage.departure_status,
-                'text-error': prochain_passage.departure_status === 'cancelled',
+                'text-warning': !next_departure.departure_status,
+                'text-error': next_departure.departure_status === 'cancelled',
               }"
             >
-              <span v-if="prochain_passage.departure_status === 'cancelled'">Annulé</span>
-              <span v-else-if="prochain_passage.vehicule_at_stop">A l'arrêt</span>
+              <span v-if="next_departure.departure_status === 'cancelled'">Annulé</span>
+              <span v-else-if="next_departure.vehicule_at_stop">A l'arrêt</span>
               <span
                 v-else
-                v-html="formatRemainingTime(prochain_passage.expected_departure_time)"
+                v-html="formatRemainingTime(next_departure.expected_departure_time)"
               />
             </v-col>
           </v-row>
@@ -132,15 +132,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import formatRemainingTime from "@/utils/formatRemainingTime";
-import formatTime from "@/utils/formatTime";
-
-const prochains_passages = ref([]);
-const stops = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+const next_departures = ref([] as Stop[]);
+const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
 
 function isFuture (date: string) {
   return new Date(date) >= new Date();
 }
+
 function resolveLineClass (line: string) {
   return `mr-1 v-chip--label v-chip--density-default v-chip--size-small v-chip--variant-elevated font-weight-bold line--${line
     .normalize("NFD")
@@ -149,9 +147,7 @@ function resolveLineClass (line: string) {
 }
 
 async function refresh () {
-  prochains_passages.value = await $fetch(
-    `/api/prochains_passages?stopIds=${stops.value.join(",")}`
-  );
+  next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
   useLastRefreshTime().value = new Date();
 }
 

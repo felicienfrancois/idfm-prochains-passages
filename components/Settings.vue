@@ -46,15 +46,15 @@
             </v-card>
             <v-card
               v-for="item in items"
-              :key="item.stop_id"
+              :key="item.id"
               flat
               class="py-2"
-              @click="toggleStop(item.stop_id)"
+              @click="toggleStop(item.id)"
             >
               <v-row dense>
                 <v-col class="text-center" cols="1">
                   <v-icon
-                    v-if="stops.indexOf(item.stop_id) !== -1"
+                    v-if="stops.indexOf(item.id) !== -1"
                     icon="mdi-check"
                   />
                 </v-col>
@@ -72,7 +72,7 @@
                 </v-col>
                 <v-col cols="8">
                   <v-list-item
-                    :title="item.stop_name"
+                    :title="item.name"
                     :subtitle="item.city"
                     class="py-0"
                   />
@@ -99,9 +99,6 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
-import debounce from "@/utils/debounce";
-import resolveLineClass from "@/utils/resolveLineClass";
-
 const idle = useIdle();
 
 const search = ref("");
@@ -114,7 +111,7 @@ watch(search, () => debounce(autocomplete));
 async function autocomplete () {
   if (search && search.value.length > 2) {
     items.value = await $fetch(
-      `/api/arrets?${new URLSearchParams({ search: search.value })}`
+      `/api/stops/search?${new URLSearchParams({ search: search.value })}`
     );
   }
 }

@@ -13,9 +13,9 @@ export default defineEventHandler((event) => {
   return Object.values(stops)
     .filter(row => row._search.includes(simple_search))
     .map(row => ({
-      stop_id: row.id,
-      stop_name: row.name,
+      id: row.id,
+      name: row.name,
       city: row.city,
       lines: row.lines.map((id: string) => (lines as any)[id]),
-    }));
+    })) as Stop[];
 });
