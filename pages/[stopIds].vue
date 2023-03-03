@@ -6,7 +6,7 @@
     >
       <thead>
         <tr class="text-2xl text-white bg-stone-100">
-          <th colspan="4" class="py-1 px-0">
+          <th colspan="4" class="pt-1 pb-0.5 px-0">
             <div v-if="!index || stop.name !== next_departures[index-1].name" class="bg-stone-600">
               <span class="inline-block mr-4 my-1.5">{{ stop.name }}</span>
               <LineChip v-for="line in stop.lines" :key="line" :line="line" />
@@ -26,19 +26,19 @@
           v-show="isFuture(next_departure.expected_departure_time || next_departure.aimed_departure_time)"
           :key="next_departure.item_id"
           no-gutters
-          :class="{ 'bg-stone-200': i % 2 == 0 }"
+          :class="{ 'bg-stone-100': i % 2 == 0 }"
         >
           <td class="text-center py-1 px-2">
             <div
               v-if="!next_departure.departure_status && next_departure.aimed_departure_time"
-              class="line-through text-stone-400 text-sm -mt-1 -mb-2"
+              class="line-through text-stone-400 text-sm -my-1"
             >
               {{ formatTime(next_departure.aimed_departure_time) }}
             </div>
             <div
               :class="{
                 'text-xl': true,
-                'text-yellow-500 -mb-1': !next_departure.departure_status,
+                'text-amber-500 -mb-1': !next_departure.departure_status,
                 'text-red-700 line-through': next_departure.departure_status === 'cancelled',
               }"
             >
@@ -64,12 +64,12 @@
           <td
             :class="{
               'text-center py-1 px-2': true,
-              'text-yellow-500': !next_departure.departure_status,
+              'text-amber-500': !next_departure.departure_status,
               'text-red-700': next_departure.departure_status === 'cancelled',
             }"
           >
             <span v-if="next_departure.departure_status === 'cancelled'">Annulé</span>
-            <span v-else-if="next_departure.vehicule_at_stop">A l'arrêt</span>
+            <span v-else-if="next_departure.vehicule_at_stop">A&nbsp;l'arrêt</span>
             <RemainingTime v-else :date="next_departure.expected_departure_time" />
           </td>
         </tr>
