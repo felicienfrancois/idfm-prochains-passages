@@ -1,5 +1,5 @@
 <template>
-  <span v-if="remainingTime > 1" :class="{ 'text-3xl': true, 'text-stone-900 animate-pulse': remainingTime < 5}">
+  <span v-if="remainingTime > 1" :class="{ 'text-4xl': true, 'text-stone-900 animate-pulse': remainingTime < 5}">
     <span>{{ remainingTime }}</span>
     <span class="text-sm">min</span>
   </span>

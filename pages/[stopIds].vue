@@ -1,12 +1,12 @@
 <template>
-  <table class="scale-to-screen text-stone-700 w-full w-max-full -mt-1">
+  <table class="scale-to-screen text-stone-700 w-full w-max-full -mt-1 mb-3">
     <template
       v-for="(stop, index) in next_departures"
       :key="stop.id"
     >
       <thead>
         <tr class="text-2xl text-white bg-stone-100">
-          <th colspan="4" class="pt-1 pb-0.5 px-0">
+          <th colspan="5" class="pt-1 pb-0.5 px-0">
             <div v-if="!index || stop.name !== next_departures[index-1].name" class="bg-stone-600">
               <span class="inline-block mr-4 my-1.5">{{ stop.name }}</span>
               <LineChip v-for="line in stop.lines" :key="line" :line="line" />
@@ -17,7 +17,7 @@
       </thead>
       <tbody class="shadow">
         <tr v-if="!stop.next_departures?.length">
-          <td class="text-xl text-stone-500 pl-10 py-6" colspan="4">
+          <td class="text-xl text-stone-500 pl-10 py-6" colspan="5">
             Ne circule pas
           </td>
         </tr>
@@ -37,7 +37,7 @@
             </div>
             <div
               :class="{
-                'text-xl': true,
+                'text-lg': true,
                 'text-amber-500 -mb-1': !next_departure.departure_status,
                 'text-red-700 line-through': next_departure.departure_status === 'cancelled',
               }"
@@ -45,25 +45,35 @@
               {{ formatTime(next_departure.expected_departure_time || next_departure.aimed_departure_time) }}
             </div>
           </td>
+          <td v-if="next_departure.arrival_platform_name" class="py-1.5 pl-1 pr-4">
+            <div :class="`text-4xl text-center font-bold ${platformColors[(parseInt(next_departure.arrival_platform_name) || 0) % platformColors.length]}`">
+              {{ next_departure.arrival_platform_name }}
+            </div>
+            <div class="text-[8px] text-center -mt-1">Voie</div>
+          </td>
           <td class="py-1.5 px-0">
             <LineChip :line="next_departure.line" />
           </td>
-          <td class="py-1.5 px-1">
+          <td class="py-1.5 px-1 text-xl" :colspan="next_departure.arrival_platform_name ? 1 : 2">
+            <div v-if="next_departure.journey_note" :class="{
+              'text-2xl': true,
+              'text-red-700': next_departure.departure_status === 'cancelled',
+            }">
+              {{ next_departure.journey_note }}
+            </div>
             <div
               :class="{
-                'text-xl overflow-hidden max-h-7 break-words': true,
-                'text-red-700 line-through': next_departure.departure_status === 'cancelled',
+                'overflow-hidden max-h-7 break-words': true,
+                'text-lg -mt-2 opacity-80': next_departure.journey_note,
+                'text-red-700': next_departure.departure_status === 'cancelled',
               }"
             >
               {{ next_departure.destination_display || next_departure.destination_name }}
             </div>
-            <div v-if="next_departure.journey_note" class="opacity-60 -mt-1">
-              {{ next_departure.journey_note }}
-            </div>
           </td>
           <td
             :class="{
-              'text-center py-1 px-2': true,
+              'text-center py-1 px-2 text-lg': true,
               'text-amber-500': !next_departure.departure_status,
               'text-red-700': next_departure.departure_status === 'cancelled',
             }"
@@ -75,7 +85,7 @@
         </tr>
       </tbody>
       <tr v-if="index === next_departures.length -1 || stop.name !== next_departures[index + 1].name">
-        <td class="h-2" colspan="4"></td>
+        <td class="h-2" colspan="5"></td>
       </tr>
     </template>
   </table>
@@ -83,6 +93,14 @@
 <script setup lang="ts">
 const next_departures = ref([] as Stop[]);
 const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+
+const platformColors = [
+  "text-yellow-900",
+  "text-sky-800",
+  "text-orange-800",
+  "text-purple-800",
+  "text-teal-800",
+];
 
 function isFuture (date: string) {
   return new Date(date) >= new Date();
