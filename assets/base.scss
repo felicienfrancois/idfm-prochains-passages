@@ -9,58 +9,72 @@ html {
     transform-origin: 0 0;
 }
 
+@media (min-width: 640px) {
+    .scale-to-screen {
+        width: 85vw;
+        transform: scale(calc(100/85));
+    }
+}
+
 @media (min-width: 800px) {
     .scale-to-screen {
-        width: 87vw;
-        transform: scale(calc(100/87));
+        width: 75vw;
+        transform: scale(calc(100/75));
     }
 }
 
 @media (min-width: 1000px) {
-    .scale-to-screen {
-        width: 72vw;
-        transform: scale(calc(100/72));
-    }
-}
-
-@media (min-width: 1200px) {
     .scale-to-screen {
         width: 60vw;
         transform: scale(calc(100/60));
     }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1200px) {
     .scale-to-screen {
-        width: 45vw;
-        transform: scale(calc(100/45));
+        width: 50vw;
+        transform: scale(calc(100/50));
     }
 }
 
-@media (min-width: 2400px) {
+@media (min-width: 1600px) {
+    .scale-to-screen {
+        width: 37.5vw;
+        transform: scale(calc(100/37.5));
+    }
+}
+
+@media (min-width: 1800px) {
     .scale-to-screen {
         width: 30vw;
         transform: scale(calc(100/30));
     }
 }
 
-@media (min-width: 3600px) {
+@media (min-width: 2400px) {
+    .scale-to-screen {
+        width: 25vw;
+        transform: scale(calc(100/25));
+    }
+}
+
+@media (min-width: 3000px) {
     .scale-to-screen {
         width: 20vw;
         transform: scale(calc(100/20));
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 540px) {
     .scale-to-screen {
-        width: 125vw;
-        transform: scale(calc(100/125));
+        width: 110vw;
+        transform: scale(calc(100/110));
     }
 }
 
 @media (max-width: 400px) {
     .scale-to-screen {
-        width: 140vw;
-        transform: scale(calc(100/140));
+        width: 132vw;
+        transform: scale(calc(100/132));
     }
 }

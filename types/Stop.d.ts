@@ -1,5 +1,5 @@
 interface Stop {
-  id: number;
+  id: string;
   name: string;
   city: string;
   lines: string[];

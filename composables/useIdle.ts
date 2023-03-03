@@ -9,7 +9,7 @@ export function resetIdleTimer () {
 let binded = false;
 
 export default function useIdle () {
-  if (!binded && typeof(window) !== "undefined") {
+  if (!binded && typeof (window) !== "undefined") {
     window.onmousemove = resetIdleTimer;
     window.onmousedown = resetIdleTimer;
     window.ontouchstart = resetIdleTimer;

@@ -3,7 +3,7 @@
   "description": "Display the next bus, trains, metros, tramways at any station in the Paris area (Ile de France Mobilité)",
   "keywords": [
     "Nuxt 3",
-    "Vuetify 3",
+    "tailwindcss",
     "IDFM",
     "RATP",
     "STIF",
@@ -34,8 +34,9 @@
     "@nuxtjs/google-fonts": "^2.0.0",
     "eslint": "^8.34.0",
     "nuxt": "^3.0.0",
-    "sass": "^1.57.1",
-    "vite-plugin-vuetify": "^1.0.2",
-    "vuetify": "^3.1.2"
+    "sass": "^1.57.1"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.4.1"
   }
 }

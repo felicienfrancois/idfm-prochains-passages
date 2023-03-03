@@ -71,7 +71,7 @@
 }
 .line--18, .line--N {
   background-color: #00a88f !important;
-  color: #25303b !important;
+  color: #ffffff !important;
 }
 .line--20, .line--26, .line--27, .line--70, .line--82, .line--103, .line--105, .line--112, .line--127, .line--137, .line--139, .line--158, .line--165, .line--185, .line--189, .line--194, .line--234, .line--247, .line--269, .line--272, .line--299, .line--312, .line--356, .line--485, .line--499, .line--566, .line--577, .line--559c, .line--buseolien_2, .line--riverplaza {
   background-color: #ff5a00 !important;
@@ -202,40 +202,44 @@
 
 .line--A, .line--B, .line--C, .line--D, .line--E {
   font-weight: bold !important;
+  line-height: 1.55 !important;
   height: 34px !important;
   width: 34px !important;
-  font-size: 1.1rem !important;
-  padding: 0 7px !important;
+  font-size: 1.46rem !important;
+  padding: 0px 2px 0px 0px !important;
   justify-content: center;
 }
 
 .line--H, .line--J, .line--K, .line--L, .line--N, .line--P, .line--R, .line--U {
   font-weight: bold !important;
+  line-height: 1.55 !important;
   height: 34px !important;
   width: 34px !important;
-  font-size: 1.1rem !important;
-  padding: 0 7px !important;
+  font-size: 1.46rem !important;
+  padding: 0 !important;
   justify-content: center;
 }
 
 .line--1, .line--2, .line--3, .line--4, .line--5, .line--6, .line--7, .line--8, .line--9, .line--10, .line--11, .line--12, .line--13, .line--14, .line--15, .line--16, .line--17, .line--18 {
   border-radius: 50% !important;
+  line-height: 1.55 !important;
   font-weight: bold !important;
-  height: 34px !important;
-  width: 34px !important;
-  font-size: 1.1rem !important;
-  padding: 0 7px !important;
+  height: 36px !important;
+  width: 36px !important;
+  font-size: 1.46rem !important;
+  padding: 0 !important;
   justify-content: center;
 }
 
 .line--T1, .line--T2, .line--T3a, .line--T3b, .line--T4, .line--T5, .line--T6, .line--T7, .line--T8, .line--T9, .line--T10, .line--T11, .line--T12, .line--T13 {
-  font-size: 1.1rem !important;
+  font-size: 1.35rem !important;
+  line-height: 1.25 !important;
   height: 30px !important;
   font-weight: bold !important;
   border-top-width: 3px !important;
   border-bottom-width: 3px !important;
   color: #25303b !important;
-  padding: 0 7px !important;
+  padding: 0 6px !important;
   justify-content: center;
   box-shadow: none !important;
   border-radius: 0 !important;

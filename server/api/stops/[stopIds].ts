@@ -1,7 +1,7 @@
 import stopsData from "@/data/stops.json";
 import lines from "@/data/lines.json";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const { stopIds } = getQuery(event);
   if (!stopIds) { return; }
 

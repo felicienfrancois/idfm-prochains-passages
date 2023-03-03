@@ -1,25 +1,12 @@
-import vuetify from "vite-plugin-vuetify";
-
 export default defineNuxtConfig({
-  css: ["vuetify/styles", "@/assets/base.scss", "@/assets/lines.scss"],
-  build: {
-    transpile: ["vuetify"],
-  },
+  css: ["@/assets/base.scss", "@/assets/lines.scss"],
   runtimeConfig: {
     // idfm api key. Should be set through environment variable NUXT_API_KEY
     primApiKey: "",
   },
-  vite: {
-    ssr: {
-      noExternal: ["vuetify"],
-    },
-  },
   modules: [
     "@kevinmarrec/nuxt-pwa",
-    (options, nuxt) => {
-      // @ts-ignore
-      nuxt.hooks.hook("vite:extendConfig", config => config.plugins.push(vuetify()));
-    }
+    "@nuxtjs/tailwindcss"
   ],
   app: {
     head: {

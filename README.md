@@ -3,7 +3,7 @@ Display the next bus, trains, metros, tramways at any station in the Paris area 
 
 Published on Netlify at [prochains-passages.fr](https://prochains-passages.fr)
 
-Based on [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) + [Vuetify 3](https://next.vuetifyjs.com)
+Based on [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) + [TailwindCSS](https://tailwindcss.com/)
 
 Uses [Ile de France Mobilités APIs](https://prim.iledefrance-mobilites.fr)
 
