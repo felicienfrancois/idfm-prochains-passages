@@ -38,7 +38,7 @@
           placeholder="Rechercher un arrêt de Bus, Métro, RER ou Transilien"
         >
         <span class="grow" />
-        <button class="rounded-full px-2 py-2 hover:opacity-60" @click="dialog = false" v-show="stops.length">
+        <button v-show="stops.length" class="rounded-full px-2 py-2 hover:opacity-60" @click="dialog = false">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -113,8 +113,8 @@
       <div class="bg-white mb-6 px-2 py-2">
         <button
           class="w-full px-2 py-2 font-semibold text-sm bg-green-100 text-stone-700 shadow-sm hover:opacity-60 h-12 uppercase text-xl drop-shadow disabled:opacity-40"
-          @click="dialog = false"
           :disabled="stops.length == 0"
+          @click="dialog = false"
         >
           Valider
         </button>
@@ -146,6 +146,6 @@ function toggleStop (stopId: string) {
   } else {
     stops.value.push(stopId);
   }
-  useRouter().replace("/"+stops.value.join(","));
+  useRouter().replace("/" + stops.value.join(","));
 }
 </script>

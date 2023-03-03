@@ -1,8 +1,10 @@
 <template>
-    <div :class="`text-4xl text-center font-bold ${colorClass}`">
-        {{ props.platform_name }}
-    </div>
-    <div class="text-[8px] text-center -mt-1">Voie</div>
+  <div :class="`text-4xl text-center font-bold ${colorClass}`">
+    {{ props.platform_name }}
+  </div>
+  <div class="text-[8px] text-center -mt-1">
+    Voie
+  </div>
 </template>
 <script setup lang="ts">
 const props = defineProps<{ platform_name: string }>();

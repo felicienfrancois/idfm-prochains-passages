@@ -57,10 +57,13 @@
               <LineChip :line="next_departure.line" />
             </td>
             <td class="py-1 px-1" :colspan="next_departure.arrival_platform_name ? 1 : 2">
-              <div v-if="next_departure.journey_note" :class="{
-                'text-2xl': true,
-                'text-red-700': next_departure.departure_status === 'cancelled',
-              }">
+              <div
+                v-if="next_departure.journey_note"
+                :class="{
+                  'text-2xl': true,
+                  'text-red-700': next_departure.departure_status === 'cancelled',
+                }"
+              >
                 {{ next_departure.journey_note }}
               </div>
               <div
@@ -71,7 +74,7 @@
                   'text-red-700': next_departure.departure_status === 'cancelled',
                 }"
               >
-              {{ next_departure.destination_display || next_departure.destination_name }}
+                {{ next_departure.destination_display || next_departure.destination_name }}
               </div>
             </td>
             <td
@@ -81,15 +84,19 @@
                 'text-red-700': next_departure.departure_status === 'cancelled',
               }"
             >
-              <div v-if="next_departure.departure_status === 'cancelled'">Annulé</div>
-              <div v-else-if="next_departure.vehicule_at_stop">A&nbsp;l'arrêt</div>
+              <div v-if="next_departure.departure_status === 'cancelled'">
+                Annulé
+              </div>
+              <div v-else-if="next_departure.vehicule_at_stop">
+                A&nbsp;l'arrêt
+              </div>
               <RemainingTime v-else :date="next_departure.expected_departure_time" />
             </td>
           </tr>
         </transition>
       </tbody>
       <tr v-if="index === next_departures.length -1 || stop.name !== next_departures[index + 1].name">
-        <td class="h-1" colspan="5"></td>
+        <td class="h-1" colspan="5" />
       </tr>
     </template>
   </table>

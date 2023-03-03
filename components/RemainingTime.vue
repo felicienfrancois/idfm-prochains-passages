@@ -3,7 +3,9 @@
     <span>{{ remainingTime }}</span>
     <span class="text-sm">min</span>
   </div>
-  <div v-else>A&nbsp;l'approche</div>
+  <div v-else>
+    A&nbsp;l'approche
+  </div>
 </template>
 
 <script setup lang="ts">
