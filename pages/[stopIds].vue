@@ -46,10 +46,7 @@
             </div>
           </td>
           <td v-if="next_departure.arrival_platform_name" class="py-1.5 pl-1 pr-4">
-            <div :class="`text-4xl text-center font-bold ${platformColors[(parseInt(next_departure.arrival_platform_name) || 0) % platformColors.length]}`">
-              {{ next_departure.arrival_platform_name }}
-            </div>
-            <div class="text-[8px] text-center -mt-1">Voie</div>
+            <PlatformTag :platform_name="next_departure.arrival_platform_name" />
           </td>
           <td class="py-1.5 px-0">
             <LineChip :line="next_departure.line" />
@@ -68,7 +65,7 @@
                 'text-red-700': next_departure.departure_status === 'cancelled',
               }"
             >
-              {{ next_departure.destination_display || next_departure.destination_name }}
+            {{ next_departure.destination_display || next_departure.destination_name }}
             </div>
           </td>
           <td
@@ -93,14 +90,6 @@
 <script setup lang="ts">
 const next_departures = ref([] as Stop[]);
 const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
-
-const platformColors = [
-  "text-yellow-900",
-  "text-sky-800",
-  "text-orange-800",
-  "text-purple-800",
-  "text-teal-800",
-];
 
 function isFuture (date: string) {
   return new Date(date) >= new Date();
