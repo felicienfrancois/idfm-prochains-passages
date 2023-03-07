@@ -72,6 +72,10 @@
             passages.
           </div>
         </div>
+        <div class="absolute z-20 top-14 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-200/90" v-show="loading">
+          <div class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]">
+          </div>
+        </div>
         <div v-show="items.length" class="mt-3">
           <table class="w-screen">
             <tr
@@ -79,7 +83,7 @@
               :key="item.id"
               :class="{
                 'cursor-pointer hover:bg-stone-50': true,
-                'opacity-10': item._score > 3,
+                'opacity-10': item._score && item._score > 3,
                 'opacity-30': item._score === 3,
                 'opacity-50': item._score === 2
               }"
@@ -133,6 +137,7 @@
 const idle = useIdle();
 
 const search = ref("");
+const loading = ref(false);
 const items = ref([] as Stop[]);
 const stops = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
 const dialog = ref(!stops.value.length);
@@ -141,9 +146,13 @@ watch(search, () => debounce(autocomplete));
 
 async function autocomplete () {
   if (search.value.length > 2) {
+    loading.value = true;
     items.value = await $fetch(
       `/api/stops/search?${new URLSearchParams({ search: search.value })}`
     );
+    loading.value = false;
+  } else {
+    items.value = [];
   }
 }
 function toggleStop (stopId: string) {

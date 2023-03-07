@@ -1,4 +1,8 @@
 <template>
+  <div class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-100/90" v-show="loading">
+    <div class="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]">
+    </div>
+  </div>
   <table class="scale-to-screen text-stone-700 w-full w-max-full -mt-1 mb-3">
     <template
       v-for="(stop, index) in next_departures"
@@ -104,14 +108,20 @@
 <script setup lang="ts">
 const next_departures = ref([] as Stop[]);
 const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+const loading = ref(stopIds.value.length > 0);
 
 function isFuture (date: string) {
   return new Date(date) >= useCurrentTime().value;
 }
 
 async function refresh () {
-  next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
-  useLastRefreshTime().value = new Date();
+  if (!stopIds.value.length) {
+    next_departures.value = [];
+  } else {
+    next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
+    useLastRefreshTime().value = new Date();
+  }
+  loading.value = false;
 }
 
 onMounted(() => setInterval(refresh, 60000));
