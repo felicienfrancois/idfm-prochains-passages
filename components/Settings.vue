@@ -52,7 +52,7 @@
         </button>
       </div>
       <div class="grow flex justify-center overflow-auto">
-        <div v-if="!items.length" flat class="pt-6">
+        <div v-if="!items.length" flat class="pt-6 px-1">
           <div class="animate-bounce flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -160,6 +160,7 @@ function toggleStop (stopId: string) {
   } else {
     stops.value.push(stopId);
   }
+  localStorage.setItem("stopIds", stops.value.join(","));
   useRouter().replace("/" + stops.value.join(","));
 }
 </script>
