@@ -137,7 +137,7 @@ const idle = useIdle();
 const search = ref("");
 const loading = ref(false);
 const items = ref([] as Stop[]);
-const stops = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+const stops = computed(() => useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
 const dialog = useShowSettings();
 
 watch(search, () => debounce(autocomplete));
@@ -154,13 +154,14 @@ async function autocomplete () {
   }
 }
 function toggleStop (stopId: string) {
-  const i = stops.value.indexOf(stopId);
+  const stopIds = [...stops.value];
+  const i = stopIds.indexOf(stopId);
   if (i !== -1) {
-    stops.value.splice(i, 1);
+    stopIds.splice(i, 1);
   } else {
-    stops.value.push(stopId);
+    stopIds.push(stopId);
   }
-  localStorage.setItem("stopIds", stops.value.join(","));
-  useRouter().replace("/" + stops.value.join(","));
+  localStorage.setItem("stopIds", stopIds.join(","));
+  useRouter().replace("/" + stopIds.join(","));
 }
 </script>
