@@ -19,4 +19,11 @@ export default defineNuxtConfig({
       ],
     },
   },
+  pwa: {
+    manifest: {
+      name: "Prochains passages - Ile de France",
+      short_name: "Prochains passages",
+      lang: "fr",
+    },
+  },
 });

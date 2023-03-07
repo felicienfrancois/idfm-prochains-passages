@@ -138,7 +138,7 @@ const search = ref("");
 const loading = ref(false);
 const items = ref([] as Stop[]);
 const stops = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
-const dialog = ref(!stops.value.length);
+const dialog = useShowSettings();
 
 watch(search, () => debounce(autocomplete));
 

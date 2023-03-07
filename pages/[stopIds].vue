@@ -108,22 +108,19 @@
 <script setup lang="ts">
 const next_departures = ref([] as Stop[]);
 const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
-const loading = ref(stopIds.value.length > 0);
+const loading = ref(true);
 
 function isFuture (date: string) {
   return new Date(date) >= useCurrentTime().value;
 }
 
 async function refresh () {
-  if (!stopIds.value.length) {
-    next_departures.value = [];
-  } else {
-    next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
-    useLastRefreshTime().value = new Date();
-  }
+  next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
+  useLastRefreshTime().value = new Date();
   loading.value = false;
 }
 
+onMounted(() => localStorage.setItem("stopIds", stopIds.value.join(",")));
 onMounted(() => setInterval(refresh, 60000));
 onMounted(refresh);
 
