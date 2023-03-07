@@ -7,7 +7,7 @@
   >
     <button
       v-show="!dialog && !idle"
-      class="z-10 drop-shadow-xl fixed top-4 right-4 px-2 py-2 font-semibold text-sm bg-green-300 text-stone-900 rounded-full shadow-sm hover:opacity-60"
+      class="z-10 drop-shadow-xl fixed top-3 right-3 px-2 py-2 font-semibold text-sm bg-green-300 text-stone-900 rounded-full shadow-sm hover:opacity-60"
       @click="dialog = true"
     >
       <svg
@@ -72,45 +72,52 @@
             passages.
           </div>
         </div>
-        <table>
-          <tr
-            v-for="item in items"
-            :key="item.id"
-            class="cursor-pointer hover:bg-stone-50"
-            @click="toggleStop(item.id)"
-          >
-            <td
+        <div v-show="items.length" class="mt-3">
+          <table class="w-screen">
+            <tr
+              v-for="item in items"
+              :key="item.id"
               :class="{
-                'px-3 py-2': true,
-                'opacity-10 text-stone-400': stops.indexOf(item.id) === -1
+                'cursor-pointer hover:bg-stone-50': true,
+                'opacity-10': item._score > 3,
+                'opacity-30': item._score === 3,
+                'opacity-50': item._score === 2
               }"
+              @click="toggleStop(item.id)"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
+              <td
+                :class="{
+                  'px-3 py-2': true,
+                  'opacity-10 text-stone-400': stops.indexOf(item.id) === -1
+                }"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-            </td>
-            <td class="text-right px-3 py-2">
-              <LineChip v-for="line in item.lines" :key="line" :line="line" />
-            </td>
-            <td class="px-3 py-2 min-w-[30vw]">
-              <div class="text-lg">
-                {{ item.name }}
-              </div>
-              <div class="text-sm text-stone-500">
-                {{ item.city }}
-              </div>
-            </td>
-          </tr>
-        </table>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </td>
+              <td class="text-right px-3 py-2">
+                <LineChip v-for="line in item.lines" :key="line" :line="line" />
+              </td>
+              <td class="px-3 py-2 w-[50vw]">
+                <div class="text-lg">
+                  {{ item.name }}
+                </div>
+                <div class="text-sm text-stone-500">
+                  {{ item.city }}
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
-      <div class="bg-white mb-6 px-2 py-2">
+      <div class="bg-white mb-5 px-2 py-2">
         <button
           class="w-full px-2 py-2 font-semibold text-sm bg-green-100 text-stone-700 shadow-sm hover:opacity-60 h-12 uppercase text-xl drop-shadow disabled:opacity-40"
           :disabled="stops.length == 0"

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex fixed z-40 bottom-0 h-6 px-1 py-1 w-full bg-stone-300 text-[12px] text-stone-500">
+  <div class="flex fixed z-40 bottom-0 h-5 px-1 py-1 w-full bg-stone-300 text-[10px] text-stone-500">
     <div>
       <span class="mx-2">
         © {{ currentTime.getFullYear() }}
