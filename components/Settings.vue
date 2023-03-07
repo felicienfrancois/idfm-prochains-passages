@@ -65,11 +65,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
             </svg>
           </div>
-          <div class="text-center text-stone-600">
-            Recherchez vos arrêts de Bus, Métro, Tram, Rer d'île de
-            France,<br>
-            pour les ajouter à votre tableau de suivi des prochains
-            passages.
+          <div class="max-w-[500px] text-stone-600">
+            Recherchez vos arrêts de Bus, Métro, Tram, Rer d'île de France,
+            pour les ajouter à votre tableau de suivi des prochains passages.
           </div>
         </div>
         <div class="absolute z-20 top-14 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-200/90" v-show="loading">
