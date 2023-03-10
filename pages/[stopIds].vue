@@ -62,28 +62,27 @@
             </td>
             <td class="py-1 px-1" :colspan="next_departure.arrival_platform_name ? 1 : 2">
               <div
-                v-if="next_departure.journey_note"
                 :class="{
-                  'text-2xl': true,
-                  'text-red-700': next_departure.departure_status === 'cancelled',
-                }"
-              >
-                {{ next_departure.journey_note }}
-              </div>
-              <div
-                :class="{
-                  'overflow-hidden max-h-10 break-words': true,
-                  'text-lg -mt-2 opacity-80': next_departure.journey_note,
-                  'text-2xl my-0.5': !next_departure.journey_note,
+                  'overflow-hidden text-2xl max-h-8 break-all': true,
+                  'my-0.5': !next_departure.journey_note,
                   'text-red-700': next_departure.departure_status === 'cancelled',
                 }"
               >
                 {{ next_departure.destination_display || next_departure.destination_name }}
               </div>
+              <div
+                v-if="next_departure.journey_note"
+                :class="{
+                  'text-2xl -mt-2 font-bold text-stone-900': true,
+                  'text-red-700': next_departure.departure_status === 'cancelled',
+                }"
+              >
+                {{ next_departure.journey_note }}
+              </div>
             </td>
             <td
               :class="{
-                'text-center py-0.5 px-2 text-lg': true,
+                'text-center py-0.5 px-2 text-lg text-stone-900': true,
                 'text-amber-500': !next_departure.departure_status,
                 'text-red-700': next_departure.departure_status === 'cancelled',
               }"
