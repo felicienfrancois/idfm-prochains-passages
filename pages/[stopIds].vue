@@ -110,6 +110,13 @@ const next_departures = ref([] as Stop[]);
 const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
 const loading = ref(true);
 
+const { data: stops } = await useFetch<Stop[]>(`/api/stops/${stopIds.value.join(",")}`);
+
+useSeoMeta({
+  title: () => `${stops.value?.[0]?.name || ""} - Prochains passages`,
+  description: () => `Prochains passages des lignes ${stops.value?.flatMap(s => s.lines).join(", ") || ""}`,
+});
+
 function isFuture (date: string) {
   return new Date(date) >= useCurrentTime().value;
 }
