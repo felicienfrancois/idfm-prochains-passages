@@ -18,6 +18,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "Prochains passages - Ile de France",
+      script: [
+        {
+          children: "if (typeof globalThis === 'undefined') { window.globalThis = window; }"
+        }
+      ],
       meta: [
         {
           name: "description",
