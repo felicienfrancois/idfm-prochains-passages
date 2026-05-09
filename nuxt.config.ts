@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  compatibilityDate: "2026-05-09",
   css: ["@/assets/base.scss", "@/assets/lines.scss"],
   runtimeConfig: {
     // idfm api key. Should be set through environment variable NUXT_API_KEY
