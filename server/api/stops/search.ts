@@ -20,6 +20,7 @@ export default defineEventHandler((event) => {
         id: row.id,
         name: row.name,
         city: row.city,
+        lineIds: row.lines,
         lines: row.lines.map((id: string) => (lines as any)[id]),
         _score: _score,
       } as Stop;
