@@ -85,12 +85,12 @@
                 'opacity-30': item._score === 3,
                 'opacity-50': item._score === 2
               }"
-              @click="toggleStop(item.id)"
+              @click="toggleStop(item)"
             >
               <td
                 :class="{
                   'px-3 py-2': true,
-                  'opacity-10 text-stone-400': stops.indexOf(item.id) === -1
+                  'opacity-10 text-stone-400': stops.findIndex(s => s.split('{')[0] === item.id) === -1
                 }"
               >
                 <svg
@@ -137,7 +137,9 @@ const idle = useIdle();
 const search = ref("");
 const loading = ref(false);
 const items = ref([] as Stop[]);
-const stops = computed(() => useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+const route = useRoute();
+const router = useRouter();
+const stops = computed(() => route.params.stopIds ? (route.params.stopIds as string).split(",") : []);
 const dialog = useShowSettings();
 
 watch(search, () => debounce(autocomplete));
@@ -153,15 +155,19 @@ async function autocomplete () {
     items.value = [];
   }
 }
-function toggleStop (stopId: string) {
+function toggleStop (item: Stop) {
   const stopIds = [...stops.value];
-  const i = stopIds.indexOf(stopId);
+  const i = stopIds.findIndex(s => s.split("{")[0] === item.id);
   if (i !== -1) {
     stopIds.splice(i, 1);
   } else {
-    stopIds.push(stopId);
+    const newStopId = item.lineIds?.length ? `${item.id}{${item.lineIds.join(",")}}` : item.id;
+    stopIds.push(newStopId);
   }
   localStorage.setItem("stopIds", stopIds.join(","));
-  useRouter().replace("/" + stopIds.join(","));
+  router.replace({
+    path: "/" + stopIds.join(","),
+    query: { limit: route.query.limit || 12 },
+  });
 }
 </script>
