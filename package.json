@@ -34,9 +34,12 @@
     "@nuxtjs/sitemap": "^8.0.15",
     "@types/node": "^25.6.2",
     "@vite-pwa/nuxt": "^1.1.1",
+    "@vitejs/plugin-legacy": "^8.0.1",
     "eslint": "^10.3.0",
     "nuxt": "^4.4.4",
-    "sass": "^1.99.0"
+    "nuxt-vite-legacy": "^2.0.1",
+    "sass": "^1.99.0",
+    "terser": "^5.47.1"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0"

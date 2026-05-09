@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     },
   },
   modules: [
+    "nuxt-vite-legacy",
     "@vite-pwa/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/sitemap",
