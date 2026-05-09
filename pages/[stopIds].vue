@@ -106,7 +106,9 @@
 </template>
 <script setup lang="ts">
 const next_departures = ref([] as Stop[]);
-const stopIds = ref(useRoute().params.stopIds ? (useRoute().params.stopIds as string).split(",") : []);
+const route = useRoute();
+const stopIds = ref(route.params.stopIds ? (route.params.stopIds as string).split(",") : []);
+const limit = route.query.limit;
 const loading = ref(true);
 
 const { data: stops } = await useFetch<Stop[]>(`/api/stops/${stopIds.value.join(",")}`);
@@ -121,7 +123,8 @@ function isFuture (date: string) {
 }
 
 async function refresh () {
-  next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}`);
+  const limitQuery = limit ? `&limit=${limit}` : "";
+  next_departures.value = await $fetch(`/api/next_departures?stopIds=${stopIds.value.join(",")}${limitQuery}`);
   useLastRefreshTime().value = new Date();
   loading.value = false;
 }
