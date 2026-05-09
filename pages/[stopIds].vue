@@ -1,7 +1,6 @@
 <template>
-  <div class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-100/90" v-show="loading">
-    <div class="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]">
-    </div>
+  <div v-show="loading" class="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-100/90">
+    <div class="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]"/>
   </div>
   <table class="scale-to-screen text-stone-700 w-full w-max-full -mt-1 mb-3">
     <template
@@ -55,7 +54,7 @@
               </div>
             </td>
             <td v-if="next_departure.arrival_platform_name" class="py-1 pl-1 pr-4">
-              <PlatformTag :platform_name="next_departure.arrival_platform_name" />
+              <PlatformTag :platform-name="next_departure.arrival_platform_name" />
             </td>
             <td class="py-1 px-0">
               <LineChip :line="next_departure.line" />

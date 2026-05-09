@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+ 
 const fs = require("fs");
 const { parseFile } = require("@fast-csv/parse");
 

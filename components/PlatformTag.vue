@@ -1,13 +1,13 @@
 <template>
   <div :class="`text-4xl text-center font-bold ${colorClass}`">
-    {{ props.platform_name }}
+    {{ props.platformName }}
   </div>
   <div class="text-[8px] text-center -mt-1">
     Voie
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps<{ platform_name: string }>();
+const props = defineProps<{ platformName: string }>();
 
 const platformColors = [
   "text-yellow-900",
@@ -17,6 +17,6 @@ const platformColors = [
   "text-teal-800"
 ];
 
-const colorClass = computed(() => platformColors[(parseInt(props.platform_name, 36) || 0) % platformColors.length]);
+const colorClass = computed(() => platformColors[(parseInt(props.platformName, 36) || 0) % platformColors.length]);
 
 </script>

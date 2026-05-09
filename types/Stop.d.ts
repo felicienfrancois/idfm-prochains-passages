@@ -4,6 +4,6 @@ interface Stop {
   city: string;
   lines: string[];
   _search?: string;
-  _score?: number;
+  _score: number;
   next_departures?: NextDeparture[];
 }

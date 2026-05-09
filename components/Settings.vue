@@ -70,9 +70,8 @@
             pour les ajouter à votre tableau de suivi des prochains passages.
           </div>
         </div>
-        <div class="absolute z-20 top-14 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-200/90" v-show="loading">
-          <div class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]">
-          </div>
+        <div v-show="loading" class="absolute z-20 top-14 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-200/90">
+          <div class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]"/>
         </div>
         <div v-show="items.length" class="mt-3">
           <table class="w-screen">

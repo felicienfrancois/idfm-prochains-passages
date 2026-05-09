@@ -19,15 +19,17 @@
       </span>
     </div>
     <div class="grow" />
-    <div class="hidden md:inline">
-      <span class="mx-2">{{ displayWidth }}x{{ displayHeight }}</span>
-      <span>•</span>
-      <span class="mx-2">{{ formatTimeSec(loadTime) }}</span>
-      <span>•</span>
-      <span class="mx-2">{{ formatTimeSec(lastRefreshTime) }}</span>
-      <span>•</span>
-      <span class="mx-2">{{ formatTimeSec(currentTime) }}</span>
-    </div>
+    <ClientOnly>
+      <div class="hidden md:inline">
+        <span class="mx-2">{{ displayWidth }}x{{ displayHeight }}</span>
+        <span>•</span>
+        <span class="mx-2">{{ formatTimeSec(loadTime) }}</span>
+        <span>•</span>
+        <span class="mx-2">{{ formatTimeSec(lastRefreshTime) }}</span>
+        <span>•</span>
+        <span class="mx-2">{{ formatTimeSec(currentTime) }}</span>
+      </div>
+    </ClientOnly>
   </div>
 </template>
 

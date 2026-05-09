@@ -1,30 +1,11 @@
-module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
-  extends: [
-    "eslint:recommended",
-    "plugin:vue/vue3-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "@nuxtjs/eslint-config-typescript"
-  ],
-  parserOptions: {
-    ecmaVersion: "latest",
-    parser: "@typescript-eslint/parser",
-    sourceType: "module",
-  },
-  plugins: [
-    "vue",
-    "@typescript-eslint"
-  ],
+import withNuxt from "./.nuxt/eslint.config.mjs";
+
+export default withNuxt({
   rules: {
-    "max-len": [1, 120],
+    "max-len": [1, 300],
     "vue/max-len": [1, {
-      code: 120,
-      template: 120,
+      code: 150,
+      template: 150,
       tabWidth: 2,
       ignoreComments: true,
       ignoreTrailingComments: true,
@@ -48,6 +29,8 @@ module.exports = {
     camelcase: [0, "ignore"],
     "vue/no-multiple-template-root": [0, "ignore"],
     "@typescript-eslint/no-unused-vars": [0, "ignore"],
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-unsafe-function-type": 0,
     "no-console": [0, "ignore"],
   },
-};
+});

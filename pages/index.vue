@@ -7,8 +7,7 @@
     :duration="1000"
   >
     <div v-show="loading" class="z-40 absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-stone-50">
-      <div class="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]">
-      </div>
+      <div class="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-stone-800 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_2s_linear_infinite]"/>
     </div>
   </transition>
 </template>

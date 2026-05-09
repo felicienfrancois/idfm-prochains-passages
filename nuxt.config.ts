@@ -8,9 +8,10 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    "@kevinmarrec/nuxt-pwa",
+    "@vite-pwa/nuxt",
     "@nuxtjs/tailwindcss",
-    "nuxt-simple-sitemap",
+    "@nuxtjs/sitemap",
+    "@nuxt/eslint"
   ],
   app: {
     head: {
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Tauri&display=swap",
-        },
+        }
       ],
     },
   },

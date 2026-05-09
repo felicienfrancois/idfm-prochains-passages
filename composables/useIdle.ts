@@ -19,5 +19,5 @@ export default function useIdle () {
     window.addEventListener("scroll", resetIdleTimer, true);
     binded = true;
   }
-  return useState<Boolean>("idle", () => true);
+  return useState<boolean>("idle", () => true);
 }

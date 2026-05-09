@@ -7,7 +7,7 @@
 <script setup lang="ts">
 const props = defineProps<{ line: string }>();
 
-function resolveLineClass (line?: String) {
+function resolveLineClass (line?: string) {
   return `line--${line ? line.normalize("NFD").replace(/[\u0300-\u036F]/g, "").replace(/[^A-Za-z0-9-]/g, "_") : "default"}`;
 }
 </script>

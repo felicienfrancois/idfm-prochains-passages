@@ -17,8 +17,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --ext .ts,.js,.vue .",
-    "fix": "eslint --fix --ext .ts,.js,.vue .",
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -27,17 +27,17 @@
     "preprocess_data": "node scripts/preprocess_data"
   },
   "devDependencies": {
-    "@fast-csv/parse": "^4.3.6",
-    "@kevinmarrec/nuxt-pwa": "^0.16.2",
-    "@mdi/font": "^7.1.96",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
-    "@nuxtjs/google-fonts": "^2.0.0",
-    "eslint": "^8.35.0",
-    "nuxt": "^3.2.3",
-    "nuxt-simple-sitemap": "^1.0.9",
-    "sass": "^1.58.3"
+    "@fast-csv/parse": "^5.0.7",
+    "@mdi/font": "^7.4.47",
+    "@nuxt/eslint": "^1.15.2",
+    "@nuxtjs/google-fonts": "^3.2.0",
+    "@nuxtjs/sitemap": "^8.0.15",
+    "@vite-pwa/nuxt": "^1.1.1",
+    "eslint": "^10.3.0",
+    "nuxt": "^4.4.4",
+    "sass": "^1.99.0"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.4.1"
+    "@nuxtjs/tailwindcss": "^6.14.0"
   }
 }

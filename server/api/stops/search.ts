@@ -4,7 +4,7 @@ import lines from "@/data/lines.json";
 export default defineEventHandler((event) => {
   const { search } = getQuery(event);
   if (!search) { return; }
-  const simple_search = (search as String)
+  const simple_search = (search as string)
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036F]/g, "")
@@ -15,13 +15,13 @@ export default defineEventHandler((event) => {
     .map(row => {
       const prevChar = row._search.charAt(row._search.indexOf(simple_search) - 1);
       const nextChar = row._search.charAt(row._search.indexOf(simple_search) + simple_search.length);
-      let _score = 3 - [" ", ""].indexOf(prevChar) - [" ", ""].indexOf(nextChar);
+      const _score = 3 - [" ", ""].indexOf(prevChar) - [" ", ""].indexOf(nextChar);
       return {
         id: row.id,
         name: row.name,
         city: row.city,
         lines: row.lines.map((id: string) => (lines as any)[id]),
-        _score
+        _score: _score,
       } as Stop;
     })
     .sort((stop1, stop2) => stop1._score - stop2._score);
