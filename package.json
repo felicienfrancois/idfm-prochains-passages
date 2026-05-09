@@ -42,6 +42,7 @@
     "terser": "^5.47.1"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.14.0"
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@sentry/nuxt": "^10.52.0"
   }
 }

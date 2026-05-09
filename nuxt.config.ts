@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2026-05-09",
   css: ["@/assets/base.scss", "@/assets/lines.scss"],
+
   runtimeConfig: {
     // idfm api key. Should be set through environment variable NUXT_API_KEY
     primApiKey: "",
@@ -8,13 +9,9 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://prochains-passages.fr",
     },
   },
-  modules: [
-    "nuxt-vite-legacy",
-    "@vite-pwa/nuxt",
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/sitemap",
-    "@nuxt/eslint"
-  ],
+
+  modules: ["nuxt-vite-legacy", "@vite-pwa/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/sitemap", "@nuxt/eslint", "@sentry/nuxt/module"],
+
   app: {
     head: {
       title: "Prochains passages - Ile de France",
@@ -42,11 +39,22 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   pwa: {
     manifest: {
       name: "Prochains passages - Ile de France",
       short_name: "Prochains passages",
       lang: "fr",
     },
+  },
+
+  sentry: {
+    org: "tweakstyle",
+    project: "javascript-nuxt",
+    autoInjectServerSentry: "top-level-import",
+  },
+
+  sourcemap: {
+    client: "hidden",
   },
 });
