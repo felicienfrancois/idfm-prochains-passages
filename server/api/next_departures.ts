@@ -3,17 +3,26 @@ import lines from "@/data/lines.json";
 const runtimeConfig = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
-  const { stopIds } = getQuery(event);
+  const { stopIds, limit } = getQuery(event);
   if (!stopIds) { return; }
+  const limitNum = limit ? parseInt(limit as string, 10) : undefined;
 
   const result: Stop[] = [];
-  for (const stopId of (stopIds as string).split(",")) {
+  for (const stopIdConfig of (stopIds as string).split(",")) {
+    const match = stopIdConfig.match(/^([^{]+)(?:{(.*)})?$/);
+    if (!match) continue;
+    const stopId = match[1];
+    const allowedLines = match[2] ? match[2].split(",") : null;
+
+    const data = (stopsData as any)[stopId];
+    if (!data) continue;
+
     const stop: any = {
-      id: (stopsData as any)[stopId]?.id,
-      name: (stopsData as any)[stopId]?.name,
-      lines: (stopsData as any)[stopId]?.lines.map(
-        (id: string) => (lines as any)[id]
-      ),
+      id: data.id,
+      name: data.name,
+      lines: data.lines
+        .filter((id: string) => !allowedLines || allowedLines.includes(id))
+        .map((id: string) => (lines as any)[id]),
       next_departures: [],
     };
     result.push(stop);
@@ -25,9 +34,16 @@ export default defineEventHandler(async (event) => {
         },
       }
     );
-    for (const s of (idfm_resp as any).Siri.ServiceDelivery.StopMonitoringDelivery.flatMap(
+    for (const s of (idfm_resp as any).Siri?.ServiceDelivery?.StopMonitoringDelivery?.flatMap(
       (s: any) => s?.MonitoredStopVisit
-    )) {
+    ) || []) {
+      if (!s) continue;
+      
+      const lineId = s?.MonitoredVehicleJourney?.LineRef?.value?.split(":")?.splice(-2, 1)[0];
+      if (allowedLines && !allowedLines.includes(lineId)) {
+        continue;
+      }
+
       if (
         new Date(
           s?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime ||
@@ -54,6 +70,9 @@ export default defineEventHandler(async (event) => {
           arrival_status: s?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
         });
       }
+    }
+    if (limitNum && stop.next_departures.length > limitNum) {
+      stop.next_departures = stop.next_departures.slice(0, limitNum);
     }
   }
   return result;
