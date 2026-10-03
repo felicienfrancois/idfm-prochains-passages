@@ -1,0 +1,6 @@
+; OVH shared hosting runtime configuration
+; https://help.ovhcloud.com/csm/fr-web-hosting-configure-ovhconfig-file
+app.engine=php
+app.engine.version=8.2
+http.firewall=none
+environment=production
