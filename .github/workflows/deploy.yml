@@ -29,23 +29,20 @@ jobs:
           );
           EOF
 
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ vars.FTP_SERVER }}
-          username: ${{ vars.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: ./
-          server-dir: ${{ vars.FTP_SERVER_DIR || 'www/' }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            arrets-lignes.csv
-            cache/**
-            README.md
-            LICENSE
-            config.sample.php
-            data/stop_id_overrides.json
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload via SFTP
+        env:
+          FTP_SERVER: ${{ vars.FTP_SERVER }}
+          FTP_USERNAME: ${{ vars.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ vars.FTP_SERVER_DIR || 'www' }}
+        run: |
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "sftp://$FTP_SERVER" <<EOF
+          set sftp:auto-confirm yes
+          set net:max-retries 3
+          set net:timeout 30
+          mirror --reverse --delete --verbose --parallel=4             --exclude-glob .git             --exclude-glob .git/             --exclude-glob .github/             --exclude-glob .gitignore             --exclude-glob arrets-lignes.csv             --exclude-glob cache/             --exclude-glob README.md             --exclude-glob LICENSE             --exclude-glob config.sample.php             ./ "$FTP_SERVER_DIR"
+          quit
+          EOF

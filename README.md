@@ -79,7 +79,7 @@ Upload everything (except `arrets-lignes.csv`, `.git` and local `cache/`) to the
 
 ### Automatic deployment (GitHub Actions)
 
-[.github/workflows/deploy.yml](.github/workflows/deploy.yml) uploads the branch `php` to OVH over FTPS on every push
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml) uploads the branch `php` to OVH over SFTP (port 22, `lftp mirror`) on every push
 (or manually from the Actions tab). Configure these repository variables and secrets:
 
 | Name | Value |
@@ -90,7 +90,8 @@ Upload everything (except `arrets-lignes.csv`, `.git` and local `cache/`) to the
 | `PRIM_API_KEY` | PRIM API key, written into `config.php` during the deployment |
 
 Optional repository variable `FTP_SERVER_DIR` sets the remote directory (default `www/`).
-The action syncs only changed files and keeps a `.ftp-deploy-sync-state.json` marker on the server.
+The mirror deletes remote files that no longer exist in the repository, except the excluded paths (`cache/`, `config.sample.php`...).
+OVH FTP servers do not support FTPS (`500 This security scheme is not implemented`), hence SFTP.
 
 ## Update stop points and lines databases
 
