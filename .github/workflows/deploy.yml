@@ -43,5 +43,6 @@ jobs:
           set sftp:auto-confirm yes
           set net:max-retries 3
           set net:timeout 30
+          set cmd:fail-exit yes
           quit
           EOF
