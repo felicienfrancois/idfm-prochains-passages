@@ -77,6 +77,21 @@ Upload everything (except `arrets-lignes.csv`, `.git` and local `cache/`) to the
 - Create `config.php` on the server with your API key (never commit it).
 - Total footprint is about 3.5 MB, which fits the 10 MB free plan.
 
+### Automatic deployment (GitHub Actions)
+
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml) uploads the branch `php` to OVH over FTPS on every push
+(or manually from the Actions tab). Configure these repository secrets:
+
+| Secret | Value |
+| --- | --- |
+| `FTP_SERVER` | FTP host given by OVH (e.g. `ftp.cluster0xx.hosting.ovh.net`) |
+| `FTP_USERNAME` | FTP user |
+| `FTP_PASSWORD` | FTP password |
+| `PRIM_API_KEY` | PRIM API key, written into `config.php` during the deployment |
+
+Optional repository variable `FTP_SERVER_DIR` sets the remote directory (default `www/`).
+The action syncs only changed files and keeps a `.ftp-deploy-sync-state.json` marker on the server.
+
 ## Update stop points and lines databases
 
 Stop points and lines come from the CSV ["Arrêts et lignes associées" provided by Ile de France Mobilités](https://prim.iledefrance-mobilites.fr/jeux-de-donnees/arrets-lignes).
