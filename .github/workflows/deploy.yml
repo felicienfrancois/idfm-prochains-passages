@@ -39,10 +39,15 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SERVER_DIR: ${{ vars.FTP_SERVER_DIR || 'www' }}
         run: |
+          EXCLUDES=""
+          for pattern in .git .git/ .github/ .gitignore arrets-lignes.csv cache/ README.md LICENSE; do
+            EXCLUDES="$EXCLUDES --exclude-glob $pattern"
+          done
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "sftp://$FTP_SERVER" <<EOF
           set sftp:auto-confirm yes
           set net:max-retries 3
           set net:timeout 30
           set cmd:fail-exit yes
+          mirror --reverse --delete --verbose --ignore-time --ignore-size --parallel=4 $EXCLUDES ./ "$FTP_SERVER_DIR"
           quit
           EOF
