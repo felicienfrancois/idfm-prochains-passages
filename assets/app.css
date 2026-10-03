@@ -324,6 +324,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .footer a { color: #57534e; text-decoration: underline; }
 .footer__item { margin: 0 8px; }
+.footer__version { color: #a8a29e; }
 .footer__left { float: left; }
 .footer__right { float: right; display: none; }
 .show-sm { display: inline; }

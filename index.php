@@ -45,6 +45,9 @@ $description = count($stops)
     ? 'Prochains passages des lignes ' . implode(', ', array_unique($allLines))
     : "Composez votre écran de suivi des prochains passages de votre Bus, Métro, Tram, Rer d'île de France";
 
+// Deployed version (written by the GitHub Action), "dev" otherwise
+$version = is_file(APP_ROOT . '/VERSION') ? trim(file_get_contents(APP_ROOT . '/VERSION')) : 'dev';
+
 $appState = array(
     'base' => $base,
     'stopIds' => $stopIdConfigs,
@@ -64,7 +67,7 @@ $appState = array(
 <link rel="apple-touch-icon" href="<?php echo e($base); ?>/icon.png">
 <link rel="manifest" href="<?php echo e($base); ?>/manifest.json">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tauri&display=swap">
-<link rel="stylesheet" href="<?php echo e($base); ?>/assets/app.css?v=5">
+<link rel="stylesheet" href="<?php echo e($base); ?>/assets/app.css?v=6">
 <link rel="stylesheet" href="<?php echo e($base); ?>/assets/lines.css?v=1">
 </head>
 <body>
@@ -125,6 +128,8 @@ $appState = array(
   </div>
   <div class="footer__left">
     <span class="footer__item">© <span id="footer-year"><?php echo date('Y'); ?></span> <span class="hide-sm">Félicien François</span></span>
+    <span>•</span>
+    <span class="footer__item footer__version" title="Version PHP déployée">php <?php echo e($version); ?></span>
     <span>•</span>
     <a href="https://prochains-passages.fr" class="footer__item">prochains-passages.fr</a>
     <span class="hide-lg">•</span>

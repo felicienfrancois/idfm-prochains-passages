@@ -3,3 +3,4 @@ config.php
 cache/
 arrets-lignes.csv
 .env
+VERSION
