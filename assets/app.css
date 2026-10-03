@@ -143,6 +143,7 @@ button { font-family: inherit; cursor: pointer; }
   display: inline-block;
   margin: 0 2px;
   padding: 2px 6px;
+  border: 0 solid transparent; /* lines.css sets border widths/colors for tram lines */
   border-radius: 4px;
   background: #292524;
   color: #fff;

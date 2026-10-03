@@ -42,11 +42,9 @@ foreach ($stops as $stopId => $row) {
     }
 }
 
+// Stable sort (PHP >= 8.0) by relevance only, keeping the database order otherwise
 usort($results, function ($a, $b) {
-    if ($a['score'] !== $b['score']) {
-        return $a['score'] - $b['score'];
-    }
-    return strcmp($a['name'], $b['name']);
+    return $a['score'] - $b['score'];
 });
 
 json_response($results);
