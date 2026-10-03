@@ -1,6 +1,6 @@
 <?php
 /**
- * Default configuration. Copy this file to config.php and fill in your values.
+ * Configuration example. Copy this file to config.php and fill in your values (defaults live in lib/data.php).
  * config.php is gitignored. The environment variable PRIM_API_KEY also overrides the key.
  */
 return array(

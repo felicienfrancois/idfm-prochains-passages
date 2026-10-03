@@ -9,9 +9,19 @@
 
 define('APP_ROOT', dirname(__DIR__));
 
+// Shared hosting rarely exposes PHP logs: write them next to the response cache (cache/php-error.log).
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+if (is_dir(APP_ROOT . '/cache') || @mkdir(APP_ROOT . '/cache', 0775, true)) {
+    if (!is_file(APP_ROOT . '/cache/.htaccess')) {
+        @file_put_contents(APP_ROOT . '/cache/.htaccess', "Require all denied\n");
+    }
+    ini_set('error_log', APP_ROOT . '/cache/php-error.log');
+}
+
 /**
- * Load configuration: config.php (gitignored) overrides config.sample.php defaults,
- * environment variable PRIM_API_KEY overrides both.
+ * Load configuration: built-in defaults, overridden by config.php (gitignored),
+ * overridden by the environment variable PRIM_API_KEY.
  */
 function app_config()
 {
@@ -19,7 +29,12 @@ function app_config()
     if ($config !== null) {
         return $config;
     }
-    $config = require APP_ROOT . '/config.sample.php';
+    $config = array(
+        'prim_api_key' => '',
+        'site_url' => 'https://prochains-passages.fr',
+        'cache_ttl' => 20,
+        'cache_dir' => APP_ROOT . '/cache',
+    );
     if (is_file(APP_ROOT . '/config.php')) {
         $local = require APP_ROOT . '/config.php';
         if (is_array($local)) {

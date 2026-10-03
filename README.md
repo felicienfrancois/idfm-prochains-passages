@@ -75,6 +75,7 @@ Upload everything (except `arrets-lignes.csv`, `.git` and local `cache/`) to the
 - `.htaccess` handles the pretty URLs (`mod_rewrite`) and blocks access to `config.php`, `lib/`, `data/`, `scripts/`.
 - `.ovhconfig` selects the PHP version (`app.engine.version=8.2`). Adjust it if your plan offers another version.
 - Create `config.php` on the server with your API key (never commit it).
+- PHP errors are logged to `cache/php-error.log` (readable over FTP), since shared hosting usually hides them.
 - Total footprint is about 3.5 MB, which fits the 10 MB free plan.
 
 ### Automatic deployment (GitHub Actions)

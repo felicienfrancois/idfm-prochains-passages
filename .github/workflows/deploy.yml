@@ -43,6 +43,5 @@ jobs:
           set sftp:auto-confirm yes
           set net:max-retries 3
           set net:timeout 30
-          mirror --reverse --delete --verbose --parallel=4             --exclude-glob .git             --exclude-glob .git/             --exclude-glob .github/             --exclude-glob .gitignore             --exclude-glob arrets-lignes.csv             --exclude-glob cache/             --exclude-glob README.md             --exclude-glob LICENSE             --exclude-glob config.sample.php             ./ "$FTP_SERVER_DIR"
           quit
           EOF
