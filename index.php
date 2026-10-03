@@ -103,7 +103,7 @@ $appState = array(
         pour les ajouter à votre tableau de suivi des prochains passages.
       </div>
     </div>
-    <div id="search-loading" class="overlay overlay--search">
+    <div id="search-loading" class="overlay overlay--search hidden">
       <div class="spinner spinner--small"></div>
     </div>
     <table id="search-results" class="results"></table>
