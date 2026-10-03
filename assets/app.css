@@ -152,7 +152,7 @@ button { font-family: inherit; cursor: pointer; }
   font-size: inherit;
   line-height: inherit;
   font-weight: normal;
-  vertical-align: middle;
+  vertical-align: baseline; /* like the original: chip baseline aligned with the text */
   white-space: nowrap;
 }
 .chip--img { height: 36px; vertical-align: middle; }
