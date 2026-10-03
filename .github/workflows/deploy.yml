@@ -30,7 +30,9 @@ jobs:
           EOF
 
       - name: Write VERSION file (shown in the footer)
-        run: echo "${GITHUB_SHA::7} $(date -u +%Y-%m-%d)" > VERSION
+        run: |
+          echo "v$(TZ=Europe/Paris date +%Y%m%d%H%M)" > VERSION
+          echo "${GITHUB_SHA::7}" > VERSION.sha
 
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp

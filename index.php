@@ -45,8 +45,9 @@ $description = count($stops)
     ? 'Prochains passages des lignes ' . implode(', ', array_unique($allLines))
     : "Composez votre écran de suivi des prochains passages de votre Bus, Métro, Tram, Rer d'île de France";
 
-// Deployed version (written by the GitHub Action), "dev" otherwise
+// Deployed version "vYYYYMMDDHHmm" (written by the GitHub Action), "dev" otherwise
 $version = is_file(APP_ROOT . '/VERSION') ? trim(file_get_contents(APP_ROOT . '/VERSION')) : 'dev';
+$sha = is_file(APP_ROOT . '/VERSION.sha') ? trim(file_get_contents(APP_ROOT . '/VERSION.sha')) : '';
 
 $appState = array(
     'base' => $base,
@@ -129,7 +130,7 @@ $appState = array(
   <div class="footer__left">
     <span class="footer__item">© <span id="footer-year"><?php echo date('Y'); ?></span> <span class="hide-sm">Félicien François</span></span>
     <span>•</span>
-    <span class="footer__item footer__version" title="Version PHP déployée">php <?php echo e($version); ?></span>
+    <span class="footer__item footer__version" title="Version déployée (SHA <?php echo e($sha); ?>)"><?php echo e($version); ?></span>
     <span>•</span>
     <a href="https://prochains-passages.fr" class="footer__item">prochains-passages.fr</a>
     <span class="hide-lg">•</span>

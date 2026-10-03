@@ -4,3 +4,4 @@ cache/
 arrets-lignes.csv
 .env
 VERSION
+VERSION.sha
