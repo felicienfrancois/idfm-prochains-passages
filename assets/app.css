@@ -91,6 +91,7 @@ button { font-family: inherit; cursor: pointer; }
 .board__empty {
   color: #78716c;
   font-size: 20px;
+  line-height: 28px;
   padding: 20px 0 20px 40px !important;
 }
 .board__error {
@@ -100,14 +101,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .board__time { text-align: center; padding: 4px 8px !important; white-space: nowrap; }
-.board__time-aimed { text-decoration: line-through; color: #a8a29e; font-size: 14px; margin: -4px 0; }
-.board__time-main { font-size: 18px; }
+.board__time-aimed { text-decoration: line-through; color: #a8a29e; font-size: 14px; line-height: 20px; margin: -4px 0; }
+.board__time-main { font-size: 18px; line-height: 28px; }
 .board__time-main--estimated { color: #f59e0b; margin-bottom: -4px; }
 .board__time-main--cancelled { color: #b91c1c; text-decoration: line-through; }
 
 .board__platform { padding: 4px 16px 4px 4px !important; text-align: center; }
 .platform__name { font-size: 36px; line-height: 40px; font-weight: bold; text-align: center; }
-.platform__label { font-size: 8px; text-align: center; margin-top: -4px; }
+.platform__label { font-size: 8px; line-height: 12px; text-align: center; margin-top: -4px; }
 .platform--0 { color: #713f12; }
 .platform--1 { color: #075985; }
 .platform--2 { color: #9a3412; }
@@ -129,12 +130,13 @@ button { font-family: inherit; cursor: pointer; }
   text-align: center;
   padding: 2px 8px !important;
   font-size: 18px;
+  line-height: 28px;
   color: #1c1917;
 }
 .board__status--estimated { color: #f59e0b; }
 .text--cancelled { color: #b91c1c !important; }
 .remaining { font-size: 36px; line-height: 40px; }
-.remaining__unit { font-size: 14px; }
+.remaining__unit { font-size: 14px; line-height: 20px; }
 .remaining--soon { color: #1c1917; -webkit-animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
 
 /* Line chips (colored by assets/lines.css) */

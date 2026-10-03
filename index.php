@@ -64,7 +64,7 @@ $appState = array(
 <link rel="apple-touch-icon" href="<?php echo e($base); ?>/icon.png">
 <link rel="manifest" href="<?php echo e($base); ?>/manifest.json">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tauri&display=swap">
-<link rel="stylesheet" href="<?php echo e($base); ?>/assets/app.css?v=3">
+<link rel="stylesheet" href="<?php echo e($base); ?>/assets/app.css?v=4">
 <link rel="stylesheet" href="<?php echo e($base); ?>/assets/lines.css?v=1">
 </head>
 <body>
