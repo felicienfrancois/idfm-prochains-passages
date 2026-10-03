@@ -80,12 +80,12 @@ Upload everything (except `arrets-lignes.csv`, `.git` and local `cache/`) to the
 ### Automatic deployment (GitHub Actions)
 
 [.github/workflows/deploy.yml](.github/workflows/deploy.yml) uploads the branch `php` to OVH over FTPS on every push
-(or manually from the Actions tab). Configure these repository secrets:
+(or manually from the Actions tab). Configure these repository variables and secrets:
 
-| Secret | Value |
+| Name | Value |
 | --- | --- |
-| `FTP_SERVER` | FTP host given by OVH (e.g. `ftp.cluster0xx.hosting.ovh.net`) |
-| `FTP_USERNAME` | FTP user |
+| `FTP_SERVER` (variable) | FTP host given by OVH (e.g. `ftp.cluster0xx.hosting.ovh.net`) |
+| `FTP_USERNAME` (variable) | FTP user |
 | `FTP_PASSWORD` | FTP password |
 | `PRIM_API_KEY` | PRIM API key, written into `config.php` during the deployment |
 
