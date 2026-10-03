@@ -48,6 +48,6 @@ jobs:
           set net:max-retries 3
           set net:timeout 30
           set cmd:fail-exit yes
-          mirror --reverse --delete --verbose --ignore-time --ignore-size --parallel=4 $EXCLUDES ./ "$FTP_SERVER_DIR"
+          mirror --reverse --delete --verbose --transfer-all --parallel=4 $EXCLUDES ./ "$FTP_SERVER_DIR"
           quit
           EOF
